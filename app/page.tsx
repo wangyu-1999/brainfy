@@ -20,7 +20,7 @@ async function Home() {
       {/* 主要内容区域 */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
-          {clusters.slice(0, 1).map((cluster: ClusterEntity) => (
+          {clusters.slice(-1).map((cluster: ClusterEntity) => (
             <section
               key={cluster.rowKey}
               className="bg-white rounded-xl shadow-sm overflow-hidden"
