@@ -29,14 +29,15 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
 
   return (
     <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
-      <head />
-      <body className="bg-white text-neutral-900 antialiased">
-        {children}
+      <head>
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="2j5pwkpVXwE2om1N3SjSDA"
           strategy="afterInteractive"
         />
+      </head>
+      <body className="bg-white text-neutral-900 antialiased">
+        {children}
       </body>
     </html>
   )
