@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Noto_Sans, Noto_Serif } from 'next/font/google'
+import { Language } from '../lib/constants'
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],
@@ -17,15 +18,16 @@ export const metadata: Metadata = {
   description: 'AI powered news aggregator',
 }
 
-export default function RootLayout({
-  children,
-  params,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-  params: { lang: string };
-}) {
+  params: Promise<{ lang: Language }>;
+}
+
+export default async function RootLayout({ children, params }: RootLayoutProps) {
+  const { lang } = await params;
+
   return (
-    <html lang={params.lang} className={`${notoSans.className} ${notoSerif.className}`}>
+    <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
       <body className="bg-white text-neutral-900 antialiased">
         {children}
       </body>

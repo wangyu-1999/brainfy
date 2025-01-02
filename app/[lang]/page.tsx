@@ -4,35 +4,36 @@ import { NewsContent, Article, NewsCluster } from '../../types/news'
 import { getDictionary } from '../../lib/i18n/dictionaries'
 import { Language } from '../../lib/constants'
 
-export const revalidate = 3600;
+// 使用 Promise 类型的 params
+type PageParams = Promise<{ lang: Language }>
 
-// 生成静态路由
-export async function generateStaticParams(): Promise<{ lang: Language }[]> {
+// 静态路由参数生成
+export function generateStaticParams() {
     return [
         { lang: 'zh' },
         { lang: 'en' }
     ]
 }
 
-// 元数据生成
+// Metadata 生成
 export async function generateMetadata({
     params,
 }: {
-    params: { lang: Language }
+    params: PageParams
 }): Promise<Metadata> {
-    const { lang } = params;
+    const { lang } = await params;
     return {
         title: lang === 'zh' ? '新闻聚合' : 'News Aggregator',
     }
 }
 
 // 页面组件
-export default async function Home({
+export default async function Page({
     params,
 }: {
-    params: { lang: Language }
+    params: PageParams;
 }) {
-    const { lang } = params;
+    const { lang } = await params;
     const clusters = await getLatestNews();
     const dict = await getDictionary(lang);
 
@@ -71,7 +72,6 @@ export default async function Home({
     );
 }
 
-// 语言切换组件
 function LanguageSwitcher({ currentLang }: { currentLang: Language }) {
     const targetLang = currentLang === 'zh' ? 'en' : 'zh';
 
@@ -85,7 +85,6 @@ function LanguageSwitcher({ currentLang }: { currentLang: Language }) {
     );
 }
 
-// 修改文章组件
 function ArticleMain({ content, url, lang }: {
     content: NewsContent;
     url: string;
@@ -194,7 +193,6 @@ async function getLatestNews() {
     }
 }
 
-// 单个相关新闻项组件
 function RelatedNewsItem({ article, lang }: {
     article: Article;
     lang: 'zh' | 'en'
@@ -269,7 +267,6 @@ function RelatedNewsItem({ article, lang }: {
     );
 }
 
-// 相关新闻列表组件
 function RelatedArticles({ articles, lang }: {
     articles: Article[];
     lang: 'zh' | 'en';
