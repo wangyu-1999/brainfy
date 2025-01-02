@@ -3,11 +3,10 @@ import { queryTable, getNewsContent } from '../../lib/tableService'
 import { NewsContent, Article, NewsCluster } from '../../types/news'
 import { getDictionary } from '../../lib/i18n/dictionaries'
 
-export const revalidate = 3600;
-
-// 定义支持的语言
-export const SUPPORTED_LANGUAGES = ['zh', 'en'] as const;
+const SUPPORTED_LANGUAGES = ['zh', 'en'] as const;
 type Language = typeof SUPPORTED_LANGUAGES[number];
+
+export const revalidate = 3600;
 
 // 生成静态路由
 export async function generateStaticParams() {
@@ -31,7 +30,7 @@ export async function generateMetadata({
 export default async function Home({
     params: { lang }
 }: {
-    params: { lang: 'zh' | 'en' }
+    params: { lang: Language }
 }) {
     const clusters = await getLatestNews();
     const dict = await getDictionary(lang);
