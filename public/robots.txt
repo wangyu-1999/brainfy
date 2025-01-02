@@ -1,0 +1,22 @@
+# 全局规则
+User-agent: *
+Allow: /
+
+# 允许访问主要语言版本
+Allow: /en/
+Allow: /zh/
+
+# 允许访问 sitemap
+Allow: /sitemap.xml
+
+# 禁止访问 API 和系统文件
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*.json$
+Disallow: /private/*.xml$
+
+# 设置爬虫访问延迟（考虑到4小时更新频率）
+Crawl-delay: 240
+
+# Sitemap 位置
+Sitemap: https://www.brainfy.top/sitemap.xml 
