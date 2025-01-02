@@ -15,8 +15,18 @@ const notoSerif = Noto_Serif({
 })
 
 export const metadata: Metadata = {
-  title: '新闻聚合',
-  description: 'AI powered news aggregator',
+  title: {
+    default: 'Brainfy',
+    template: '%s | Brainfy'
+  },
+  description: 'Brainfy - AI驱动的智能信息聚合平台 | AI-powered intelligent content aggregator',
+  alternates: {
+    languages: {
+      'en': '/en',
+      'zh': '/zh',
+      'x-default': '/en'
+    }
+  }
 }
 
 interface RootLayoutProps {

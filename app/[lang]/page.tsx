@@ -16,14 +16,9 @@ export function generateStaticParams() {
 }
 
 // Metadata 生成
-export async function generateMetadata({
-    params,
-}: {
-    params: PageParams
-}): Promise<Metadata> {
-    const { lang } = await params;
+export async function generateMetadata(): Promise<Metadata> {
     return {
-        title: lang === 'zh' ? '新闻聚合' : 'News Aggregator',
+        title: 'Brainfy',
     }
 }
 
