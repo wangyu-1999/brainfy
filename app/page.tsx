@@ -1,148 +1,182 @@
 import { queryTable, getNewsContent } from '../lib/tableService'
-import { NewsContent, Article, NewsCluster, ClusterEntity } from '../types/news'
-import { Suspense } from 'react'
+import { NewsContent, Article, NewsCluster } from '../types/news'
 
-async function Home() {
-  // 获取数据
-  const clusters = (await queryTable() as unknown) as ClusterEntity[];
+export const revalidate = 3600;
+
+async function getLatestNews() {
+  try {
+    const clusters = await queryTable();
+    const lastCluster = clusters.at(-1);
+
+    if (!lastCluster?.clusters) {
+      console.error('无效的聚类数据');
+      return [];
+    }
+
+    const parsedClusters: NewsCluster[] = JSON.parse(lastCluster.clusters.toString());
+
+    const sortedClusters = parsedClusters.sort((a, b) => (b.size || 0) - (a.size || 0));
+
+    return Promise.all(sortedClusters.map(async (cluster) => ({
+      ...cluster,
+      articles: await Promise.all(
+        cluster.articles
+          .sort((a, b) => (b.similarity || 0) - (a.similarity || 0))
+          .map(async (article) => ({
+            ...article,
+            content: await getNewsContent(article.url)
+          }))
+      )
+    })));
+  } catch (error) {
+    console.error('获取新闻数据失败:', error);
+    return [];
+  }
+}
+
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  // 计算天数差异而不是小时
+  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+    // 今天的新闻
+    return '今天';
+  } else if (diffDays === 1) {
+    // 昨天的新闻
+    return '昨天';
+  } else if (diffDays < 7) {
+    // 一周内的新闻
+    return `${diffDays}天前`;
+  } else {
+    // 超过一周的新闻，显示具体日期
+    return date.toLocaleDateString('zh-CN', {
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    });
+  }
+}
+
+function ArticleMain({ content, url }: { content: NewsContent; url: string }) {
+  return (
+    <article className="p-6 space-y-4">
+      <div className="block">
+        <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 
+                     leading-tight font-serif tracking-tight mb-1">
+          {content.title_cn}
+        </h2>
+        {content.title_en && (
+          <p className="text-sm text-[#bb1919] mb-3 font-medium">
+            {content.title_en}
+          </p>
+        )}
+      </div>
+      <p className="text-lg text-neutral-600 leading-relaxed font-sans">
+        {content.chinese_summary}
+      </p>
+      <div className="flex items-center justify-between text-sm text-neutral-500">
+        <div className="flex items-center gap-2">
+          <a href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium hover:text-[#bb1919] transition-colors">
+            {content.source_name}
+          </a>
+          <span>•</span>
+          <time>{formatDate(content.date)}</time>
+        </div>
+        <ShareButton />
+      </div>
+    </article>
+  );
+}
+
+function RelatedArticles({ articles }: { articles: Article[] }) {
+  if (!articles.length) return null;
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* 顶部导航区域 */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <h1 className="text-2xl font-serif font-bold text-gray-900">新闻聚合</h1>
-          </div>
-        </div>
-      </nav>
-
-      {/* 主要内容区域 */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="space-y-8">
-          {clusters.slice(-1).map((cluster: ClusterEntity) => (
-            <section
-              key={cluster.rowKey}
-              className="bg-white rounded-xl shadow-sm overflow-hidden"
-            >
-              {/* 时间戳区域 */}
-              <div className="px-6 py-4 border-b border-gray-100">
-                <time className="text-sm font-medium text-gray-500">
-                  {new Date(cluster.rowKey).toLocaleString('zh-CN', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
-                </time>
-              </div>
-
-              <div className="divide-y divide-gray-100">
-                {(() => {
-                  try {
-                    const parsedClusters = typeof cluster.clusters === 'string'
-                      ? JSON.parse(cluster.clusters) as NewsCluster[]
-                      : cluster.clusters;
-
-                    return Array.isArray(parsedClusters) && Promise.all(parsedClusters.map(async (item: NewsCluster, index: number) => {
-                      const firstArticle = item.articles?.[0];
-                      const newsContent = firstArticle ? await getNewsContent(firstArticle.url) as NewsContent : null;
-
-                      return (
-                        <article key={index} className="p-6">
-                          {typeof item === 'object' && (
-                            <div>
-                              {/* 主要新闻区域 */}
-                              {newsContent && (
-                                <div className="space-y-4">
-                                  <a
-                                    href={firstArticle?.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group block"
-                                  >
-                                    <h2 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight">
-                                      {newsContent.title_cn}
-                                    </h2>
-                                  </a>
-                                  <p className="text-base text-gray-600 leading-relaxed tracking-normal max-w-prose">
-                                    {newsContent.chinese_summary}
-                                  </p>
-                                  <div className="flex items-center space-x-4 text-sm text-gray-500">
-                                    <span className="font-medium">{newsContent.source_name}</span>
-                                    <span>•</span>
-                                    <time>{new Date(newsContent.date).toLocaleDateString('zh-CN')}</time>
-                                    <div className="flex-grow"></div>
-                                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                      <span className="sr-only">分享</span>
-                                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </div>
-                              )}
-
-                              {/* 相关新闻区域 */}
-                              {item.articles?.length > 1 && (
-                                <div className="mt-6 pt-6 border-t border-gray-100">
-                                  <h3 className="text-sm font-medium text-gray-500 mb-4">相关报道</h3>
-                                  <div className="space-y-4">
-                                    {item.articles?.slice(1).map((article: any, artIndex: number) => (
-                                      <div key={artIndex} className="pl-4 border-l-2 border-gray-200">
-                                        <Suspense fallback={<div className="animate-pulse h-6 bg-gray-200 rounded w-2/3"></div>}>
-                                          <ArticleItem article={article} />
-                                        </Suspense>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </article>
-                      );
-                    }));
-                  } catch (error) {
-                    return (
-                      <div className="p-6">
-                        <p className="text-sm text-red-500">无法解析数据</p>
-                      </div>
-                    );
-                  }
-                })()}
-              </div>
-            </section>
+    <div className="border-t border-neutral-100">
+      <div className="p-6">
+        <h3 className="text-base font-bold text-neutral-900 mb-4 font-sans">
+          相关报道
+        </h3>
+        <div className="space-y-4">
+          {articles.map(article => article.content && (
+            <div key={article.url}
+              className="pl-4 border-l-2 border-neutral-100 
+                          hover:border-[#bb1919] transition-colors">
+              <a href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group">
+                <h4 className="text-sm font-medium text-neutral-900 
+                             group-hover:text-[#bb1919] line-clamp-2 mb-1">
+                  {article.content.title_cn}
+                </h4>
+                <div className="flex items-center gap-2 text-xs text-neutral-500">
+                  <span>{article.content.source_name}</span>
+                  <span>•</span>
+                  <time>{formatDate(article.content.date)}</time>
+                </div>
+              </a>
+            </div>
           ))}
         </div>
       </div>
-    </main>
-  )
-}
-
-async function ArticleItem({ article }: { article: Article }) {
-  const articleContent = await getNewsContent(article.url) as NewsContent;
-
-  return (
-    <div className="group">
-      <a
-        href={article.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors line-clamp-2"
-      >
-        {articleContent?.title_cn || '加载中...'}
-      </a>
-      {articleContent && (
-        <div className="mt-1 flex items-center space-x-2 text-xs text-gray-500">
-          <span>{articleContent.source_name}</span>
-          <span>•</span>
-          <time>{new Date(articleContent.date).toLocaleDateString('zh-CN')}</time>
-        </div>
-      )}
     </div>
   );
 }
 
-export default Home
+function ShareButton() {
+  return (
+    <button className="p-2 rounded-full hover:bg-neutral-100 
+                       text-neutral-600 hover:text-[#bb1919]">
+      <span className="sr-only">分享</span>
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+          d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+      </svg>
+    </button>
+  );
+}
+
+export default async function Home() {
+  const clusters = await getLatestNews();
+
+  if (!clusters.length) {
+    return <div className="text-center py-10">暂无数据</div>;
+  }
+
+  return (
+    <main className="min-h-screen bg-neutral-100">
+      <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4">
+          <h1 className="h-14 flex items-center">
+            <span className="text-xl font-bold text-[#bb1919] font-serif">新闻聚合</span>
+          </h1>
+        </div>
+      </nav>
+
+      <div className="max-w-5xl mx-auto px-4 py-6">
+        {clusters.map(cluster => {
+          const [main, ...related] = cluster.articles;
+          return main?.content && (
+            <section key={main.url} className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden">
+              <ArticleMain content={main.content} url={main.url} />
+              <RelatedArticles articles={related
+                .filter((article): article is Article => article.content !== null)
+                .map(article => ({
+                  ...article,
+                  content: article.content
+                }))} />
+            </section>
+          );
+        })}
+      </div>
+    </main>
+  );
+}

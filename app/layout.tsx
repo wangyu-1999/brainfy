@@ -1,11 +1,19 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Noto_Sans, Noto_Serif } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const notoSans = Noto_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+})
+
+const notoSerif = Noto_Serif({
+  subsets: ['latin'],
+  weight: ['700'],
+})
 
 export const metadata: Metadata = {
-  title: 'Brainfy',
+  title: '新闻聚合',
   description: 'AI powered news aggregator',
 }
 
@@ -15,8 +23,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="zh-CN" className={`${notoSans.className} ${notoSerif.className}`}>
+      <body className="bg-white text-neutral-900 antialiased">
+        {children}
+      </body>
     </html>
   )
 }
