@@ -2,25 +2,25 @@ import { Metadata } from 'next'
 import { queryTable, getNewsContent } from '../../lib/tableService'
 import { NewsContent, Article, NewsCluster } from '../../types/news'
 import { getDictionary } from '../../lib/i18n/dictionaries'
-
-const SUPPORTED_LANGUAGES = ['zh', 'en'] as const;
-type Language = typeof SUPPORTED_LANGUAGES[number];
+import { Language } from '../../lib/constants'
 
 export const revalidate = 3600;
 
 // 生成静态路由
-export async function generateStaticParams() {
-    return SUPPORTED_LANGUAGES.map((lang) => ({
-        lang,
-    }));
+export async function generateStaticParams(): Promise<{ lang: Language }[]> {
+    return [
+        { lang: 'zh' },
+        { lang: 'en' }
+    ]
 }
 
 // 元数据生成
 export async function generateMetadata({
-    params: { lang }
+    params,
 }: {
     params: { lang: Language }
 }): Promise<Metadata> {
+    const { lang } = params;
     return {
         title: lang === 'zh' ? '新闻聚合' : 'News Aggregator',
     }
@@ -28,10 +28,11 @@ export async function generateMetadata({
 
 // 页面组件
 export default async function Home({
-    params: { lang }
+    params,
 }: {
     params: { lang: Language }
 }) {
+    const { lang } = params;
     const clusters = await getLatestNews();
     const dict = await getDictionary(lang);
 
