@@ -1,113 +1,148 @@
-import Image from 'next/image'
+import { queryTable, getNewsContent } from '../lib/tableService'
+import { NewsContent, Article, NewsCluster, ClusterEntity } from '../types/news'
+import { Suspense } from 'react'
 
-export default function Home() {
+async function Home() {
+  // 获取数据
+  const clusters = (await queryTable() as unknown) as ClusterEntity[];
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="min-h-screen bg-gray-50">
+      {/* 顶部导航区域 */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <h1 className="text-2xl font-serif font-bold text-gray-900">新闻聚合</h1>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* 主要内容区域 */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="space-y-8">
+          {clusters.slice(0, 1).map((cluster: ClusterEntity) => (
+            <section
+              key={cluster.rowKey}
+              className="bg-white rounded-xl shadow-sm overflow-hidden"
+            >
+              {/* 时间戳区域 */}
+              <div className="px-6 py-4 border-b border-gray-100">
+                <time className="text-sm font-medium text-gray-500">
+                  {new Date(cluster.rowKey).toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
+                </time>
+              </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+              <div className="divide-y divide-gray-100">
+                {(() => {
+                  try {
+                    const parsedClusters = typeof cluster.clusters === 'string'
+                      ? JSON.parse(cluster.clusters) as NewsCluster[]
+                      : cluster.clusters;
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+                    return Array.isArray(parsedClusters) && Promise.all(parsedClusters.map(async (item: NewsCluster, index: number) => {
+                      const firstArticle = item.articles?.[0];
+                      const newsContent = firstArticle ? await getNewsContent(firstArticle.url) as NewsContent : null;
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+                      return (
+                        <article key={index} className="p-6">
+                          {typeof item === 'object' && (
+                            <div>
+                              {/* 主要新闻区域 */}
+                              {newsContent && (
+                                <div className="space-y-4">
+                                  <a
+                                    href={firstArticle?.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group block"
+                                  >
+                                    <h2 className="text-xl sm:text-2xl font-serif font-semibold text-gray-900 group-hover:text-blue-600 transition-colors leading-tight">
+                                      {newsContent.title_cn}
+                                    </h2>
+                                  </a>
+                                  <p className="text-base text-gray-600 leading-relaxed tracking-normal max-w-prose">
+                                    {newsContent.chinese_summary}
+                                  </p>
+                                  <div className="flex items-center space-x-4 text-sm text-gray-500">
+                                    <span className="font-medium">{newsContent.source_name}</span>
+                                    <span>•</span>
+                                    <time>{new Date(newsContent.date).toLocaleDateString('zh-CN')}</time>
+                                    <div className="flex-grow"></div>
+                                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                      <span className="sr-only">分享</span>
+                                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+                              {/* 相关新闻区域 */}
+                              {item.articles?.length > 1 && (
+                                <div className="mt-6 pt-6 border-t border-gray-100">
+                                  <h3 className="text-sm font-medium text-gray-500 mb-4">相关报道</h3>
+                                  <div className="space-y-4">
+                                    {item.articles?.slice(1).map((article: any, artIndex: number) => (
+                                      <div key={artIndex} className="pl-4 border-l-2 border-gray-200">
+                                        <Suspense fallback={<div className="animate-pulse h-6 bg-gray-200 rounded w-2/3"></div>}>
+                                          <ArticleItem article={article} />
+                                        </Suspense>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </article>
+                      );
+                    }));
+                  } catch (error) {
+                    return (
+                      <div className="p-6">
+                        <p className="text-sm text-red-500">无法解析数据</p>
+                      </div>
+                    );
+                  }
+                })()}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </main>
   )
 }
+
+async function ArticleItem({ article }: { article: Article }) {
+  const articleContent = await getNewsContent(article.url) as NewsContent;
+
+  return (
+    <div className="group">
+      <a
+        href={article.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors line-clamp-2"
+      >
+        {articleContent?.title_cn || '加载中...'}
+      </a>
+      {articleContent && (
+        <div className="mt-1 flex items-center space-x-2 text-xs text-gray-500">
+          <span>{articleContent.source_name}</span>
+          <span>•</span>
+          <time>{new Date(articleContent.date).toLocaleDateString('zh-CN')}</time>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Home
