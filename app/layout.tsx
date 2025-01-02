@@ -19,11 +19,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
+  params: { lang: string };
 }) {
   return (
-    <html lang="zh-CN" className={`${notoSans.className} ${notoSerif.className}`}>
+    <html lang={params.lang} className={`${notoSans.className} ${notoSerif.className}`}>
       <body className="bg-white text-neutral-900 antialiased">
         {children}
       </body>
