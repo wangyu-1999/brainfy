@@ -2,10 +2,14 @@ import { Metadata } from 'next'
 import { queryTable, getNewsContent } from '../../lib/tableService'
 import { NewsContent, Article, NewsCluster } from '../../types/news'
 import { getDictionary } from '../../lib/i18n/dictionaries'
-import { Language } from '../../lib/constants'
+import { Language, REVALIDATE_TIME } from '../../lib/constants'
 
 // 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
+
+// 修改 revalidate 的配置方式
+export const dynamic = 'force-dynamic'
+export const revalidate = 21600
 
 // 静态路由参数生成
 export function generateStaticParams() {
