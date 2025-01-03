@@ -1,6 +1,7 @@
 import { REVALIDATE_TIME_HOURS } from '@/lib/constants'
 import { NextResponse } from 'next/server'
 import { getAllNewsWithoutContent } from '@/app/[lang]/utils/getLatestNews'
+import { formatUrlDate } from '@/app/[lang]/utils/formatUrlDate'
 
 export async function generateUrlsetXML() {
     // 获取所有历史新闻数据
@@ -8,7 +9,7 @@ export async function generateUrlsetXML() {
 
     // 生成历史页面的 URL
     const historyUrls = allNews.map(group => {
-        const date = group.date.replace(' UTC', '').replace(/[: ]/g, '-')
+        const date = formatUrlDate(group.date)
         return `
     <url>
         <loc>https://www.brainfy.top/en/history/${date}</loc>
@@ -85,8 +86,8 @@ export function handleSitemapRequest(isSitemapIndex: boolean) {
         const xml = isSitemapIndex ? generateSitemapIndexXML() : await generateUrlsetXML()
         return new NextResponse(xml, {
             headers: {
-                'Content-Type': 'application/xml',
-                'Cache-Control': `public, max-age=${REVALIDATE_TIME_HOURS * 3600}, s-maxage=${REVALIDATE_TIME_HOURS * 3600}`
+                // 'Content-Type': 'application/xml',
+                // 'Cache-Control': `public, max-age=${REVALIDATE_TIME_HOURS * 3600}, s-maxage=${REVALIDATE_TIME_HOURS * 3600}`
             }
         })
     }

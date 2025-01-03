@@ -4,6 +4,7 @@ import { Language } from '@/lib/constants'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
 import Link from 'next/link'
 import { getAllNewsWithoutContent } from '../utils/getLatestNews'
+import { formatUrlDate } from '../utils/formatUrlDate'
 
 type PageParams = Promise<{ lang: Language }>
 
@@ -103,11 +104,7 @@ export default async function HistoryPage({
                                         .map(group => (
                                             <Link
                                                 key={group.date}
-                                                href={`/${lang}/history/${encodeURIComponent(
-                                                    group.date
-                                                        .replace(' UTC', '')
-                                                        .replace(/[: ]/g, '-')
-                                                )}`}
+                                                href={`/${lang}/history/${formatUrlDate(group.date)}`}
                                                 className="block bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 group"
                                             >
                                                 <div className="p-4 flex items-center justify-between gap-4">

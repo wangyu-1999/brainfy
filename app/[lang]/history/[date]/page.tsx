@@ -10,6 +10,7 @@ import { formatHistoryDate } from '../../utils/formatDate'
 import { FloatingToc, TocItem } from '../../components/FloatingToc'
 import { slugify } from '../../utils/slugify'
 import { Article } from '@/types/news'
+import { formatUrlDate } from '../../utils/formatUrlDate'
 
 type PageParams = Promise<{
     lang: Language;
@@ -20,9 +21,8 @@ export async function generateStaticParams() {
     const allNews = await getAllNewsWithoutContent()
     const paths = []
 
-    // 为每个新闻生成中英文两个路径
     for (const group of allNews) {
-        const date = group.date.replace(' UTC', '').replace(/[: ]/g, '-')
+        const date = formatUrlDate(group.date)
         paths.push(
             {
                 lang: 'zh',
