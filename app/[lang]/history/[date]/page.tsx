@@ -7,7 +7,9 @@ import { ArticleMain } from '../../components/ArticleMain'
 import { RelatedArticles } from '../../components/RelatedArticles'
 import Link from 'next/link'
 import { formatHistoryDate } from '../../utils/formatDate'
-import { FloatingToc } from '../../components/FloatingToc'
+import { FloatingToc, TocItem } from '../../components/FloatingToc'
+import { slugify } from '../../utils/slugify'
+import { Article } from '@/types/news'
 
 type PageParams = Promise<{
     lang: Language;
@@ -74,15 +76,21 @@ export default async function HistoryDetailPage({
 
     const formattedDate = formatHistoryDate(newsGroup.date);
 
-    const tocItems = newsGroup.clusters.map((cluster, index) => {
-        const mainArticle = cluster.articles[0];
-        return {
-            id: `article-${index}`,
-            title: lang === 'zh'
+    const tocItems = newsGroup.clusters
+        .map((cluster, index) => {
+            const mainArticle = cluster.articles[0];
+            const title = lang === 'zh'
                 ? mainArticle?.content?.title_cn
-                : mainArticle?.content?.title_en
-        };
-    }).filter(item => item.title);
+                : mainArticle?.content?.title_en;
+
+            if (!title) return null;
+
+            return {
+                id: slugify(mainArticle?.content?.title_en || `article-${index}`),
+                title
+            };
+        })
+        .filter((item): item is TocItem => item !== null);
 
     return (
         <main className="min-h-screen bg-neutral-100">
@@ -110,10 +118,13 @@ export default async function HistoryDetailPage({
 
                 {newsGroup.clusters.map((cluster, index) => {
                     const [main, ...related] = cluster.articles;
+                    const title = main?.content?.title_en || main?.content?.title_cn;
+                    const articleId = title ? slugify(title) : `article-${index}`;
+
                     return main?.content && (
                         <section
                             key={main.url}
-                            id={`article-${index}`}
+                            id={articleId}
                             className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden scroll-mt-20"
                         >
                             <ArticleMain
@@ -123,7 +134,7 @@ export default async function HistoryDetailPage({
                                 useRelativeTime={false}
                             />
                             <RelatedArticles
-                                articles={related.filter((article) => article.content !== null)}
+                                articles={related.filter((article): article is Article => article.content !== null)}
                                 lang={lang}
                                 useRelativeTime={false}
                             />

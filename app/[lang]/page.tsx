@@ -8,6 +8,7 @@ import { getLatestNews } from './utils/getLatestNews'
 import { Article } from '@/types/news'
 import Link from 'next/link'
 import { FloatingToc, TocItem } from './components/FloatingToc'
+import { slugify } from './utils/slugify'
 
 // 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
@@ -47,12 +48,16 @@ export default async function Page({
 
     // 为每个新闻组创建目录项
     const tocItems = clusters
-        .map((cluster, index) => {
-            const title = lang === 'zh'
-                ? cluster.articles[0]?.content?.title_cn
-                : cluster.articles[0]?.content?.title_en;
+        .map((cluster) => {
+            const title = cluster.articles[0]?.content?.title_en ||
+                cluster.articles[0]?.content?.title_cn;
 
-            return title ? { id: `article-${index}`, title } : null;
+            return title ? {
+                id: slugify(title),
+                title: lang === 'zh'
+                    ? cluster.articles[0]?.content?.title_cn
+                    : cluster.articles[0]?.content?.title_en
+            } : null;
         })
         .filter((item): item is TocItem => item !== null);
 
@@ -82,10 +87,13 @@ export default async function Page({
 
                 {clusters.map((cluster, index) => {
                     const [main, ...related] = cluster.articles;
+                    const title = main?.content?.title_en || main?.content?.title_cn;
+                    const articleId = title ? slugify(title) : `article-${index}`;
+
                     return main?.content && (
                         <section
                             key={main.url}
-                            id={`article-${index}`}
+                            id={articleId}
                             className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden scroll-mt-20"
                         >
                             <ArticleMain content={main.content} url={main.url} lang={lang} />
