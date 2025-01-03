@@ -33,7 +33,7 @@ export async function generateMetadata({
         openGraph: {
             images: [
                 {
-                    url: 'https://www.brainfy.top/images/og/brainfy-banner.png',
+                    url: 'https://www.brainfy.top/images/og/brainfy_banner.png',
                     width: 1200,
                     height: 630,
                     alt: dictionary.metadata.title
