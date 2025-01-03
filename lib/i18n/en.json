@@ -17,7 +17,8 @@
         "title": "Know More News",
         "description": "Would you like to know more? Browse our comprehensive news archive, featuring chronologically organized news stories and related coverage from various sources. Access historical news content and track how stories developed over time.",
         "dayDescription": "Major news stories and events from %date%. Comprehensive coverage and analysis from global sources on this day.",
-        "intro": "Would you like to know more? Browse our news archives to discover what happened in the past."
+        "intro": "Would you like to know more? Browse our news archives to discover what happened in the past.",
+        "backToArchives": "Back to Archives"
     },
     "toc": {
         "title": "Contents"
