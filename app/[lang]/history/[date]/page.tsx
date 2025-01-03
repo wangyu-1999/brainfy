@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
 import { LanguageSwitcher } from '../../components/LanguageSwitcher'
-import { getAllNews } from '../../utils/getLatestNews'
+import { getAllNewsWithoutContent, getNewsByDate } from '../../utils/getLatestNews'
 import { ArticleMain } from '../../components/ArticleMain'
 import { RelatedArticles } from '../../components/RelatedArticles'
 import Link from 'next/link'
@@ -16,8 +16,31 @@ type PageParams = Promise<{
     date: string;
 }>
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 21600
+export async function generateStaticParams() {
+    const allNews = await getAllNewsWithoutContent()
+    const paths = []
+
+    // 为每个新闻生成中英文两个路径
+    for (const group of allNews) {
+        const date = group.date.replace(' UTC', '').replace(/[: ]/g, '-')
+        paths.push(
+            {
+                lang: 'zh',
+                date: date
+            },
+            {
+                lang: 'en',
+                date: date
+            }
+        )
+    }
+
+    return paths
+}
+
+export const revalidate = 43200
+
+export const dynamicParams = true
 
 export async function generateMetadata({
     params
@@ -26,7 +49,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
-    const formattedDate = new Date(decodeURIComponent(date)).toLocaleDateString(
+
+    const dateMatch = date.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (!dateMatch) return { title: dict.history.title };
+
+    const [_, year, month, day] = dateMatch;
+    const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+    const formattedDate = dateObj.toLocaleDateString(
         lang === 'zh' ? 'zh-CN' : 'en-US',
         { year: 'numeric', month: 'long', day: 'numeric' }
     );
@@ -42,13 +72,10 @@ export default async function HistoryDetailPage({
     params: PageParams;
 }) {
     const { lang, date } = await params;
-    const allNews = await getAllNews();
     const dict = await getDictionary(lang);
 
-    const newsGroup = allNews.find(group => {
-        const groupDate = group.date.replace(' UTC', '').replace(/[: ]/g, '-');
-        return groupDate === date;
-    });
+    // 直接使用日期获取数据
+    const newsGroup = await getNewsByDate(date);
 
     if (!newsGroup) {
         return (
@@ -134,7 +161,7 @@ export default async function HistoryDetailPage({
                                 useRelativeTime={false}
                             />
                             <RelatedArticles
-                                articles={related.filter((article): article is Article => article.content !== null)}
+                                articles={related.filter((article: Article): article is Article => article.content !== null)}
                                 lang={lang}
                                 useRelativeTime={false}
                             />

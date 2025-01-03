@@ -13,9 +13,7 @@ import { slugify } from './utils/slugify'
 // 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
 
-// 修改 revalidate 的配置方式
-export const dynamic = 'force-dynamic'
-export const revalidate = 21600
+export const revalidate = 43200
 
 // 静态路由参数生成
 export function generateStaticParams() {

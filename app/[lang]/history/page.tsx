@@ -2,13 +2,12 @@ import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
-import { getAllNews } from '../utils/getLatestNews'
 import Link from 'next/link'
+import { getAllNewsWithoutContent } from '../utils/getLatestNews'
 
 type PageParams = Promise<{ lang: Language }>
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 21600
+export const revalidate = 43200
 
 export async function generateMetadata({
     params
@@ -28,7 +27,7 @@ export default async function HistoryPage({
     params: PageParams;
 }) {
     const { lang } = await params;
-    const allNews = await getAllNews();
+    const allNews = await getAllNewsWithoutContent();
     const dict = await getDictionary(lang);
 
     // 按日期分组，并按时间倒序排列
@@ -43,9 +42,12 @@ export default async function HistoryPage({
         if (!acc[dateKey]) {
             acc[dateKey] = [];
         }
-        acc[dateKey].push(newsGroup);
+        acc[dateKey].push({
+            date: newsGroup.date,
+            clusters: { length: newsGroup.count }
+        });
         return acc;
-    }, {} as Record<string, typeof allNews>);
+    }, {} as Record<string, any[]>);
 
     // 将对象转换为数组并按日期倒序排序
     const sortedEntries = Object.entries(groupedNews).sort(([dateKeyA], [dateKeyB]) => {
