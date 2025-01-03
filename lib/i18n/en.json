@@ -12,5 +12,11 @@
         "today": "Today",
         "yesterday": "Yesterday",
         "daysAgo": "%d days ago"
+    },
+    "history": {
+        "title": "News Archive"
+    },
+    "toc": {
+        "title": "Contents"
     }
 }

@@ -1,9 +1,10 @@
 import { Article } from '@/types/news'
 import { RelatedNewsItem } from './RelatedNewsItem'
 
-export function RelatedArticles({ articles, lang }: {
+export function RelatedArticles({ articles, lang, useRelativeTime = true }: {
     articles: Article[];
     lang: 'zh' | 'en';
+    useRelativeTime?: boolean;
 }) {
     if (!articles.length) return null;
 
@@ -22,6 +23,7 @@ export function RelatedArticles({ articles, lang }: {
                             key={article.url}
                             article={article}
                             lang={lang}
+                            useRelativeTime={useRelativeTime}
                         />
                     ))}
                 </div>

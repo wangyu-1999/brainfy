@@ -17,4 +17,20 @@ export async function formatDate(dateString: string, lang: 'zh' | 'en') {
         hour: 'numeric',
         minute: 'numeric'
     });
+}
+
+// 新增历史记录专用的时间格式化函数
+export function formatHistoryDate(dateString: string) {
+    return new Date(dateString).toLocaleString(
+        'en-US', // 使用英文格式确保统一性
+        {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            timeZone: 'UTC'
+        }
+    ).replace(/\//g, '-') + ' UTC';
 } 

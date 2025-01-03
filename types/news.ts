@@ -19,3 +19,10 @@ export interface NewsCluster {
     size: number;
     articles: Article[];
 }
+
+export interface ClusterEntity {
+    timestamp: string;
+    clusters: string;
+    partitionKey: string;
+    rowKey: string;
+}

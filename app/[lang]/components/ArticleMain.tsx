@@ -1,11 +1,12 @@
 import { NewsContent } from '../../../types/news'
 import { ShareButton } from './ShareButton'
-import { formatDate } from '../utils/formatDate'
+import { formatDate, formatHistoryDate } from '../utils/formatDate'
 
-export function ArticleMain({ content, url, lang }: {
+export function ArticleMain({ content, url, lang, useRelativeTime = true }: {
     content: NewsContent;
     url: string;
     lang: 'zh' | 'en';
+    useRelativeTime?: boolean;
 }) {
     return (
         <article className="p-6 space-y-4">
@@ -44,7 +45,7 @@ export function ArticleMain({ content, url, lang }: {
                         </svg>
                     </a>
                     <span>•</span>
-                    <time>{formatDate(content.date, lang)}</time>
+                    <time>{useRelativeTime ? formatDate(content.date, lang) : formatHistoryDate(content.date)}</time>
                 </div>
                 <ShareButton lang={lang} />
             </div>

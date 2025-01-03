@@ -6,6 +6,8 @@ import { ArticleMain } from './components/ArticleMain'
 import { RelatedArticles } from './components/RelatedArticles'
 import { getLatestNews } from './utils/getLatestNews'
 import { Article } from '@/types/news'
+import Link from 'next/link'
+import { FloatingToc, TocItem } from './components/FloatingToc'
 
 // 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
@@ -43,24 +45,49 @@ export default async function Page({
         return <div className="text-center py-10">{dict.noData}</div>;
     }
 
+    // 为每个新闻组创建目录项
+    const tocItems = clusters
+        .map((cluster, index) => {
+            const title = lang === 'zh'
+                ? cluster.articles[0]?.content?.title_cn
+                : cluster.articles[0]?.content?.title_en;
+
+            return title ? { id: `article-${index}`, title } : null;
+        })
+        .filter((item): item is TocItem => item !== null);
+
     return (
         <main className="min-h-screen bg-neutral-100">
             <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
                 <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
-                    <h1 className="h-14 flex items-center">
-                        <span className="text-xl font-bold text-[#bb1919] font-serif">
-                            {dict.title}
-                        </span>
-                    </h1>
+                    <div className="flex items-center gap-4">
+                        <h1 className="h-14 flex items-center">
+                            <span className="text-xl font-bold text-[#bb1919] font-serif">
+                                {dict.title}
+                            </span>
+                        </h1>
+                        <Link
+                            href={`/${lang}/history`}
+                            className="text-neutral-600 hover:text-[#bb1919] transition-colors"
+                        >
+                            {dict.history.title}
+                        </Link>
+                    </div>
                     <LanguageSwitcher currentLang={lang} />
                 </div>
             </nav>
 
-            <div className="max-w-4xl mx-auto px-4 py-6">
-                {clusters.map(cluster => {
+            <div className="max-w-4xl mx-auto px-4 py-6 relative">
+                <FloatingToc items={tocItems} lang={lang} />
+
+                {clusters.map((cluster, index) => {
                     const [main, ...related] = cluster.articles;
                     return main?.content && (
-                        <section key={main.url} className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden">
+                        <section
+                            key={main.url}
+                            id={`article-${index}`}
+                            className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden scroll-mt-20"
+                        >
                             <ArticleMain content={main.content} url={main.url} lang={lang} />
                             <RelatedArticles
                                 articles={related.filter((article): article is Article => article.content !== null)}

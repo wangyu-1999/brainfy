@@ -1,4 +1,4 @@
-import { NewsContent } from '../types/news'
+import { NewsContent, ClusterEntity } from '../types/news'
 import { TableClient } from "@azure/data-tables"
 
 const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING || ""
@@ -9,10 +9,10 @@ function encodeKey(key: string): string {
     return Buffer.from(key).toString('base64')
 }
 
-export async function queryTable() {
+export async function queryTable(): Promise<ClusterEntity[]> {
     try {
-        const entities = []
-        const iterator = clustersTable.listEntities()
+        const entities: ClusterEntity[] = []
+        const iterator = clustersTable.listEntities<ClusterEntity>()
         for await (const entity of iterator) {
             entities.push(entity)
         }

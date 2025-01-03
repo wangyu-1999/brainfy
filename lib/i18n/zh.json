@@ -12,5 +12,11 @@
         "today": "今天",
         "yesterday": "昨天",
         "daysAgo": "%d天前"
+    },
+    "history": {
+        "title": "历史新闻"
+    },
+    "toc": {
+        "title": "目录"
     }
 }
