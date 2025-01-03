@@ -51,7 +51,10 @@ export async function generateMetadata({
     const dict = await getDictionary(lang);
 
     const dateMatch = date.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (!dateMatch) return { title: dict.history.title };
+    if (!dateMatch) return {
+        title: dict.history.title,
+        description: dict.history.description
+    };
 
     const [_, year, month, day] = dateMatch;
     const dateObj = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
@@ -63,6 +66,7 @@ export async function generateMetadata({
 
     return {
         title: `${formattedDate} - ${dict.history.title}`,
+        description: dict.history.dayDescription.replace('%date%', formattedDate)
     }
 }
 

@@ -19,6 +19,7 @@ export async function generateMetadata({
     const dict = await getDictionary(lang);
     return {
         title: dict.history.title,
+        description: dict.history.description,
     }
 }
 
@@ -60,21 +61,27 @@ export default async function HistoryPage({
     return (
         <main className="min-h-screen bg-neutral-100">
             <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
-                <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
-                    <h1 className="h-14 flex items-center gap-4">
-                        <Link href={`/${lang}`} className="text-xl font-bold text-[#bb1919] font-serif">
-                            {dict.title}
-                        </Link>
-                        <span className="text-neutral-500">|</span>
-                        <span className="text-lg text-neutral-900">
-                            {dict.history.title}
-                        </span>
-                    </h1>
-                    <LanguageSwitcher currentLang={lang} />
+                <div className="max-w-4xl mx-auto px-4">
+                    <div className="h-14 flex items-center justify-between">
+                        <h1 className="flex items-center gap-4">
+                            <Link href={`/${lang}`} className="text-xl font-bold text-[#bb1919] font-serif">
+                                {dict.title}
+                            </Link>
+                            <span className="text-neutral-500">|</span>
+                            <span className="text-lg text-neutral-900">
+                                {dict.history.title}
+                            </span>
+                        </h1>
+                        <LanguageSwitcher currentLang={lang} />
+                    </div>
                 </div>
             </nav>
 
             <div className="max-w-4xl mx-auto px-4 py-6">
+                <p className="text-sm text-neutral-400 mb-8 italic">
+                    {dict.history.intro}
+                </p>
+
                 <div className="relative">
                     {/* 时间线 */}
                     <div className="absolute left-8 top-0 bottom-0 w-px bg-neutral-200" />

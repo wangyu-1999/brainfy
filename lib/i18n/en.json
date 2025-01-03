@@ -5,8 +5,8 @@
     "noData": "No content available",
     "metadata": {
         "title": "Brainfy - AI-powered Intelligent Content Aggregator",
-        "description": "Brainfy is an AI-powered intelligent content aggregator that provides personalized content recommendations, knowledge discovery, and information management. Our advanced AI technology helps users efficiently acquire, organize, and share valuable information.",
-        "ogDescription": "Brainfy is an AI-powered platform for personalized content recommendations, knowledge discovery, and information management."
+        "description": "Explore a curated timeline of important news stories from the best news sources worldwide. Our AI news aggregator organizes coverage chronologically, helping you track how major stories develop and connect related events over time.",
+        "ogDescription": "Explore important news stories organized chronologically from the best news sources worldwide."
     },
     "time": {
         "today": "Today",
@@ -14,7 +14,10 @@
         "daysAgo": "%d days ago"
     },
     "history": {
-        "title": "News Archive"
+        "title": "Know More News",
+        "description": "Would you like to know more? Browse our comprehensive news archive, featuring chronologically organized news stories and related coverage from various sources. Access historical news content and track how stories developed over time.",
+        "dayDescription": "Major news stories and events from %date%. Comprehensive coverage and analysis from global sources on this day.",
+        "intro": "Would you like to know more? Browse our news archives to discover what happened in the past."
     },
     "toc": {
         "title": "Contents"
