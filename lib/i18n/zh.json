@@ -2,5 +2,10 @@
     "title": "Brainfy",
     "relatedNews": "相关报道",
     "share": "分享",
-    "noData": "暂无内容"
+    "noData": "暂无内容",
+    "metadata": {
+        "title": "Brainfy - AI驱动的智能信息聚合平台",
+        "description": "Brainfy是一个AI驱动的智能信息聚合平台,为用户提供个性化的内容推荐、知识发现和信息管理。通过先进的人工智能技术,帮助用户更高效地获取、整理和分享有价值的信息。",
+        "ogDescription": "Brainfy是一个AI驱动的智能信息聚合平台,为用户提供个性化的内容推荐、知识发现和信息管理。"
+    }
 }

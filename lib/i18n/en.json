@@ -2,5 +2,10 @@
     "title": "Brainfy",
     "relatedNews": "Related News",
     "share": "Share",
-    "noData": "No content available"
+    "noData": "No content available",
+    "metadata": {
+        "title": "Brainfy - AI-powered Intelligent Content Aggregator",
+        "description": "Brainfy is an AI-powered intelligent content aggregator that provides personalized content recommendations, knowledge discovery, and information management. Our advanced AI technology helps users efficiently acquire, organize, and share valuable information.",
+        "ogDescription": "Brainfy is an AI-powered platform for personalized content recommendations, knowledge discovery, and information management."
+    }
 }
