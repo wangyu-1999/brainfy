@@ -1,14 +1,13 @@
 import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
-import { LanguageSwitcher } from './components/LanguageSwitcher'
 import { ArticleMain } from './components/ArticleMain'
 import { RelatedArticles } from './components/RelatedArticles'
 import { getLatestNews } from './utils/getLatestNews'
 import { Article } from '@/types/news'
-import Link from 'next/link'
 import { FloatingToc, TocItem } from './components/FloatingToc'
 import { slugify } from './utils/slugify'
+import { NavBar } from './components/NavBar'
 
 // 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
@@ -61,25 +60,7 @@ export default async function Page({
 
     return (
         <main className="min-h-screen bg-neutral-100">
-            <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
-                <div className="max-w-4xl mx-auto px-4 flex justify-between items-center">
-                    <div className="flex items-center gap-4">
-                        <h1 className="h-14 flex items-center">
-                            <span className="text-xl font-bold text-[#bb1919] font-serif">
-                                {dict.title}
-                            </span>
-                        </h1>
-                        <Link
-                            href={`/${lang}/history`}
-                            className="text-neutral-600 hover:text-[#bb1919] transition-colors"
-                        >
-                            {dict.history.title}
-                        </Link>
-                    </div>
-                    <LanguageSwitcher currentLang={lang} />
-                </div>
-            </nav>
-
+            <NavBar lang={lang} dict={dict} />
             <div className="max-w-4xl mx-auto px-4 py-6 relative">
                 <FloatingToc items={tocItems} lang={lang} />
 
