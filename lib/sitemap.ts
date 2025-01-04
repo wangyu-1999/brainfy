@@ -4,9 +4,11 @@ import { getAllNewsWithoutContent } from '@/app/[lang]/utils/getLatestNews'
 import { formatUrlDate } from '@/app/[lang]/utils/formatUrlDate'
 
 export async function generateUrlsetXML() {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    const currentDate = new Date().toISOString()
+
     // 获取所有历史新闻数据
     const allNews = await getAllNewsWithoutContent()
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     // 生成历史页面的 URL
     const historyUrls = allNews.map(group => {
@@ -37,7 +39,7 @@ export async function generateUrlsetXML() {
         <loc>${baseUrl}/en</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en"/>
@@ -46,7 +48,7 @@ export async function generateUrlsetXML() {
         <loc>${baseUrl}/zh</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en"/>
@@ -55,7 +57,7 @@ export async function generateUrlsetXML() {
         <loc>${baseUrl}/en/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.9</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
@@ -64,7 +66,7 @@ export async function generateUrlsetXML() {
         <loc>${baseUrl}/zh/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.9</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
@@ -88,8 +90,9 @@ export function handleSitemapRequest(isSitemapIndex: boolean) {
         const xml = isSitemapIndex ? generateSitemapIndexXML() : await generateUrlsetXML()
         return new NextResponse(xml, {
             headers: {
-                // 'Content-Type': 'application/xml',
-                // 'Cache-Control': `public, max-age=${REVALIDATE_TIME_HOURS * 3600}, s-maxage=${REVALIDATE_TIME_HOURS * 3600}`
+                'Content-Type': 'application/xml',
+                'Cache-Control': `public, max-age=${REVALIDATE_TIME_HOURS * 3600}, s-maxage=${REVALIDATE_TIME_HOURS * 3600}`,
+                'X-Robots-Tag': 'noindex, follow'
             }
         })
     }

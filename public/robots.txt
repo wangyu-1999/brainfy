@@ -11,6 +11,9 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /*.json$
 Disallow: /private/*.xml$
+Disallow: /*?*
+Disallow: /404
+Disallow: /not-found
 
 Crawl-delay: 240
 
