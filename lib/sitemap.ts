@@ -6,26 +6,27 @@ import { formatUrlDate } from '@/app/[lang]/utils/formatUrlDate'
 export async function generateUrlsetXML() {
     // 获取所有历史新闻数据
     const allNews = await getAllNewsWithoutContent()
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     // 生成历史页面的 URL
     const historyUrls = allNews.map(group => {
         const date = formatUrlDate(group.date)
         return `
     <url>
-        <loc>https://www.brainfy.top/en/history/${date}</loc>
+        <loc>${baseUrl}/en/history/${date}</loc>
         <priority>0.8</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="https://www.brainfy.top/en/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://www.brainfy.top/zh/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.brainfy.top/en/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history/${date}"/>
     </url>
     <url>
-        <loc>https://www.brainfy.top/zh/history/${date}</loc>
+        <loc>${baseUrl}/zh/history/${date}</loc>
         <priority>0.8</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="https://www.brainfy.top/en/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://www.brainfy.top/zh/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.brainfy.top/en/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history/${date}"/>
     </url>`
     }).join('\n')
 
@@ -33,49 +34,50 @@ export async function generateUrlsetXML() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>https://www.brainfy.top/en</loc>
+        <loc>${baseUrl}/en</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="https://www.brainfy.top/en"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://www.brainfy.top/zh"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.brainfy.top/en"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en"/>
     </url>
     <url>
-        <loc>https://www.brainfy.top/zh</loc>
+        <loc>${baseUrl}/zh</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="https://www.brainfy.top/en"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://www.brainfy.top/zh"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.brainfy.top/en"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en"/>
     </url>
     <url>
-        <loc>https://www.brainfy.top/en/history</loc>
+        <loc>${baseUrl}/en/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.9</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="https://www.brainfy.top/en/history"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://www.brainfy.top/zh/history"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.brainfy.top/en/history"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
     </url>
     <url>
-        <loc>https://www.brainfy.top/zh/history</loc>
+        <loc>${baseUrl}/zh/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.9</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="https://www.brainfy.top/en/history"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://www.brainfy.top/zh/history"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://www.brainfy.top/en/history"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
     </url>${historyUrls}
 </urlset>`
 }
 
 export function generateSitemapIndexXML() {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     return `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <sitemap>
-        <loc>https://www.brainfy.top/sitemap.xml</loc>
+        <loc>${baseUrl}/sitemap.xml</loc>
         <lastmod>${new Date().toISOString()}</lastmod>
     </sitemap>
 </sitemapindex>`

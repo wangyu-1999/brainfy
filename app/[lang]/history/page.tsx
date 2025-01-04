@@ -17,14 +17,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { lang } = await params;
     const dict = await getDictionary(lang);
-
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     // 添加语言前缀
     const alternates = {
         languages: {
-            'en': '/en/history',
-            'zh': '/zh/history',
+            'en': `${baseUrl}/en/history`,
+            'zh': `${baseUrl}/zh/history`,
         },
-        'x-default': '/en/history'
+        'x-default': `${baseUrl}/en/history`
     }
 
     return {

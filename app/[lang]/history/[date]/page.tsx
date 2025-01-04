@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
     const newsGroup = await getNewsByDate(date);
-
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
     // 获取第一个cluster的第一篇文章标题
     const firstArticleTitle = newsGroup?.clusters[0]?.articles[0]?.content
         ? (lang === 'zh'
@@ -48,9 +48,9 @@ export async function generateMetadata({ params }: PageProps) {
             : dict.history.dayDescription.replace('%date%', date),
         alternates: {
             languages: {
-                'en': `/en/history/${date}`,
-                'zh': `/zh/history/${date}`,
-                'x-default': `/en/history/${date}`
+                'en': `${baseUrl}/en/history/${date}`,
+                'zh': `${baseUrl}/zh/history/${date}`,
+                'x-default': `${baseUrl}/en/history/${date}`
             }
         }
     }

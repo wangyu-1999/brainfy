@@ -23,6 +23,7 @@ export async function generateMetadata({
     // 先 await params
     const resolvedParams = await params
     const dictionary = await getDictionary(resolvedParams.lang as Language)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
     return {
         title: {
@@ -33,7 +34,7 @@ export async function generateMetadata({
         openGraph: {
             images: [
                 {
-                    url: 'https://www.brainfy.top/images/og/brainfy_banner.png',
+                    url: `${baseUrl}/images/og/brainfy_banner.png`,
                     width: 1200,
                     height: 630,
                     alt: dictionary.metadata.title
@@ -41,16 +42,16 @@ export async function generateMetadata({
             ],
             title: dictionary.metadata.title,
             description: dictionary.metadata.ogDescription,
-            url: 'https://www.brainfy.top',
+            url: baseUrl,
             siteName: dictionary.title,
             locale: resolvedParams.lang === 'zh' ? 'zh_CN' : 'en_US',
             type: 'website',
         },
         alternates: {
             languages: {
-                'en': '/en',
-                'zh': '/zh',
-                'x-default': '/en'
+                'en': `${baseUrl}/en`,
+                'zh': `${baseUrl}/zh`,
+                'x-default': `${baseUrl}/en`
             }
         },
         robots: {
