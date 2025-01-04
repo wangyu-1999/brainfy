@@ -21,18 +21,14 @@ export function NavBar({ lang, dict, showHistoryLink = true, isHistoryPage = fal
                         {showHistoryLink && (
                             <>
                                 <span className="text-neutral-500">|</span>
-                                {isHistoryPage ? (
-                                    <span className="text-lg text-neutral-900">
-                                        {dict.history.title}
-                                    </span>
-                                ) : (
-                                    <Link
-                                        href={`/${lang}/history`}
-                                        className="text-neutral-600 hover:text-[#bb1919] transition-colors"
-                                    >
-                                        {dict.history.title}
-                                    </Link>
-                                )}
+                                <Link
+                                    href={`/${lang}/history`}
+                                    className={`${isHistoryPage
+                                        ? 'text-neutral-900'
+                                        : 'text-neutral-600 hover:text-[#bb1919]'} transition-colors`}
+                                >
+                                    {dict.history.title}
+                                </Link>
                             </>
                         )}
                     </h1>
