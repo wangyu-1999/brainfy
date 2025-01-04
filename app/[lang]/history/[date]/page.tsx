@@ -30,10 +30,22 @@ export const revalidate = 43200
 export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
+    const newsGroup = await getNewsByDate(date);
+
+    // 获取第一个cluster的第一篇文章标题
+    const firstArticleTitle = newsGroup?.clusters[0]?.articles[0]?.content
+        ? (lang === 'zh'
+            ? newsGroup.clusters[0].articles[0].content.title_cn
+            : newsGroup.clusters[0].articles[0].content.title_en)
+        : dict.history.title;
 
     return {
-        title: `${date} - ${dict.history.title}`,
-        description: dict.history.dayDescription.replace('%date%', date),
+        title: firstArticleTitle
+            ? `${firstArticleTitle}`
+            : `${date} - ${dict.history.title}`,
+        description: firstArticleTitle
+            ? `${firstArticleTitle}. ${dict.history.dayDescription.replace('%date%', date)}`
+            : dict.history.dayDescription.replace('%date%', date),
         alternates: {
             languages: {
                 'en': `/en/history/${date}`,
