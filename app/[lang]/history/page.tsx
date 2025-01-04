@@ -17,9 +17,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { lang } = await params;
     const dict = await getDictionary(lang);
+
+    // 添加语言前缀
+    const alternates = {
+        languages: {
+            'en': '/en/history',
+            'zh': '/zh/history',
+        },
+        'x-default': '/en/history'
+    }
+
     return {
         title: dict.history.title,
         description: dict.history.description,
+        alternates,
     }
 }
 

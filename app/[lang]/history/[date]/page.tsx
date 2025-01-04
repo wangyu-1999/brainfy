@@ -30,16 +30,15 @@ export const revalidate = 43200
 export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
-    const baseUrl = 'https://www.brainfy.top';
 
     return {
         title: `${date} - ${dict.history.title}`,
         description: dict.history.dayDescription.replace('%date%', date),
         alternates: {
             languages: {
-                'en': `${baseUrl}/en/history/${date}`,
-                'zh': `${baseUrl}/zh/history/${date}`,
-                'x-default': `${baseUrl}/en/history/${date}`
+                'en': `/en/history/${date}`,
+                'zh': `/zh/history/${date}`,
+                'x-default': `/en/history/${date}`
             }
         }
     }
