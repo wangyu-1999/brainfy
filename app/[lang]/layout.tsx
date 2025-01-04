@@ -1,18 +1,6 @@
-import { Noto_Sans, Noto_Serif } from 'next/font/google'
-import Script from 'next/script'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Metadata } from 'next'
 import { Language } from '@/lib/constants'
-const notoSans = Noto_Sans({
-    subsets: ['latin'],
-    weight: ['400', '500', '700'],
-})
-
-const notoSerif = Noto_Serif({
-    subsets: ['latin'],
-    weight: ['700'],
-})
-
 // 生成 metadata
 export async function generateMetadata({
     params,
@@ -58,32 +46,11 @@ export async function generateMetadata({
     }
 }
 
-export const viewport = {
-    width: 'device-width',
-    initialScale: 1
-}
 
 export default async function Layout({
     children,
-    params,
 }: {
-    children: React.ReactNode
-    params: Promise<{ lang: string }>
+    children: React.ReactNode,
 }) {
-    const resolvedParams = await params
-
-    return (
-        <html lang={resolvedParams.lang} className={`${notoSans.className} ${notoSerif.className}`}>
-            <head>
-                <Script
-                    src="https://analytics.ahrefs.com/analytics.js"
-                    data-key="2j5pwkpVXwE2om1N3SjSDA"
-                    strategy="afterInteractive"
-                />
-            </head>
-            <body className="bg-white text-neutral-900 antialiased">
-                {children}
-            </body>
-        </html>
-    )
+    return children
 } 
