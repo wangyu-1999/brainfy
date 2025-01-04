@@ -25,9 +25,9 @@ export async function RelatedNewsItem({ article, lang, useRelativeTime = true }:
             >
                 <div className="pl-4 border-l-2 border-neutral-100 hover:border-[#bb1919] transition-all duration-300">
                     <div className="flex items-start justify-between gap-2 group">
-                        <h4 className="flex-1 text-sm font-medium text-neutral-900 group-hover:text-[#bb1919] transition-colors duration-200">
+                        <div className="flex-1 text-sm font-medium text-neutral-900 group-hover:text-[#bb1919] transition-colors duration-200">
                             {lang === 'zh' ? article.content.title_cn : article.content.title_en}
-                        </h4>
+                        </div>
                         <svg
                             className="w-4 h-4 mt-1 text-neutral-400 transition-transform duration-500 ease-in-out peer-checked:rotate-180 group-hover:text-[#bb1919]"
                             fill="none"

@@ -22,9 +22,9 @@ export async function FloatingToc({ items, lang }: FloatingTocProps) {
                 </svg>
             </div>
             <div className="w-64 mr-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm p-4 max-h-[calc(100vh-120px)] overflow-y-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
-                <h2 className="text-lg font-bold mb-4 text-neutral-900">
+                <div className="text-lg font-bold mb-4 text-neutral-900">
                     {dict.toc.title}
-                </h2>
+                </div>
                 <nav className="space-y-2">
                     {items.map((item) => (
                         <a

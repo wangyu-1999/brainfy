@@ -18,19 +18,20 @@ export async function generateMetadata({
     const { lang } = await params;
     const dict = await getDictionary(lang);
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    // 添加语言前缀
-    const alternates = {
-        languages: {
-            'en': `${baseUrl}/en/history`,
-            'zh': `${baseUrl}/zh/history`,
-        },
-        'x-default': `${baseUrl}/en/history`
-    }
 
     return {
         title: dict.history.title,
         description: dict.history.description,
-        alternates,
+        alternates: {
+            languages: {
+                'en': `${baseUrl}/en/history`,
+                'zh': `${baseUrl}/zh/history`,
+                'x-default': `${baseUrl}/en/history`
+            },
+        },
+        openGraph: {
+            url: `${baseUrl}/${lang}/history`,
+        }
     }
 }
 

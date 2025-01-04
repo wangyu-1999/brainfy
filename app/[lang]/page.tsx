@@ -22,13 +22,6 @@ export function generateStaticParams() {
     ]
 }
 
-// Metadata 生成
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: 'Brainfy',
-    }
-}
-
 // 页面组件
 export default async function Page({
     params,

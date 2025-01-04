@@ -1,22 +1,25 @@
 import { Article } from '@/types/news'
 import { RelatedNewsItem } from './RelatedNewsItem'
+import { getDictionary } from '@/lib/i18n/dictionaries'
 
-export function RelatedArticles({ articles, lang, useRelativeTime = true }: {
+export async function RelatedArticles({ articles, lang, useRelativeTime = true }: {
     articles: Article[];
     lang: 'zh' | 'en';
     useRelativeTime?: boolean;
 }) {
     if (!articles.length) return null;
+    
+    const dict = await getDictionary(lang)
 
     return (
         <div className="border-t border-neutral-100">
             <div className="p-6">
-                <h3 className="text-base font-bold text-neutral-900 font-sans mb-4">
-                    {lang === 'zh' ? '相关报道' : 'Related News'}
+                <div className="text-base font-bold text-neutral-900 font-sans mb-4">
+                    {dict.relatedNews}
                     <span className="ml-2 text-neutral-500 font-normal">
                         ({articles.length})
                     </span>
-                </h3>
+                </div>
                 <div className="space-y-4">
                     {articles.map(article => (
                         <RelatedNewsItem

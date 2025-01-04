@@ -10,6 +10,7 @@ import { slugify } from '../../utils/slugify'
 import { Article } from '@/types/news'
 import { formatUrlDate } from '../../utils/formatUrlDate'
 import { NavBar } from '../../components/NavBar'
+import { formatUrlDisplayDate } from '../../utils/formatDate'
 
 // 简化类型定义
 type PageProps = {
@@ -31,26 +32,39 @@ export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
     const newsGroup = await getNewsByDate(date);
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-    // 获取第一个cluster的第一篇文章标题
-    const firstArticleTitle = newsGroup?.clusters[0]?.articles[0]?.content
-        ? (lang === 'zh'
-            ? newsGroup.clusters[0].articles[0].content.title_cn
-            : newsGroup.clusters[0].articles[0].content.title_en)
-        : dict.history.title;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const formattedDate = formatUrlDisplayDate(date, lang);
+
+    // 提取关键新闻标题
+    const mainTitles = newsGroup?.clusters
+        .slice(0, 3)
+        .map(cluster => {
+            const title = lang === 'zh' 
+                ? cluster.articles[0]?.content?.title_cn 
+                : cluster.articles[0]?.content?.title_en;
+            return title || '';
+        })
+        .filter(Boolean) || [];
+
+    // 构建更丰富的描述
+    const pageDescription = mainTitles.length > 0
+        ? `${dict.history.title}: ${mainTitles.join('. ')}. ${dict.history.dayDescription.replace('%date%', formattedDate)}`
+        : `${dict.history.dayDescription.replace('%date%', date)}`;
+
+    // 构建SEO友好的标题
+    const pageTitle = `${formattedDate} - ${dict.history.title}`;
 
     return {
-        title: firstArticleTitle
-            ? `${firstArticleTitle}`
-            : `${date} - ${dict.history.title}`,
-        description: firstArticleTitle
-            ? `${firstArticleTitle}. ${dict.history.dayDescription.replace('%date%', date)}`
-            : dict.history.dayDescription.replace('%date%', date),
+        title: pageTitle,
+        description: pageDescription,
         alternates: {
             languages: {
                 'en': `${baseUrl}/en/history/${date}`,
                 'zh': `${baseUrl}/zh/history/${date}`,
                 'x-default': `${baseUrl}/en/history/${date}`
+            },
+            openGraph: {
+                url: `${baseUrl}/${lang}/history/${date}`,
             }
         }
     }
