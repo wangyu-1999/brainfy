@@ -25,7 +25,7 @@ export function ArticleMain({ content, url, lang, useRelativeTime = true }: {
             </p>
             <div className="flex items-center justify-between text-sm text-neutral-500">
                 <div className="flex items-center gap-2">
-                    <a href={url}
+                    <a href={`/${lang}/redirect?url=${encodeURIComponent(url)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group inline-flex items-center font-medium hover:text-[#bb1919] transition-colors"

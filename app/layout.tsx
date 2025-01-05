@@ -1,5 +1,4 @@
 import { Noto_Sans, Noto_Serif } from 'next/font/google'
-import Script from 'next/script'
 import './globals.css'
 
 export const viewport = {
@@ -26,11 +25,6 @@ export default async function RootLayout({
   return (
     <html className={`${notoSans.className} ${notoSerif.className}`}>
       <head>
-        <Script
-            src="https://nalytics.ahrefs.com/analytics.js"
-            data-key="2j5pwkpVXwE2om1N3SjSDA"
-            strategy="afterInteractive"
-        />
       </head>
       <body className="bg-white text-neutral-900 antialiased">
         {children}

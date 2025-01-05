@@ -27,5 +27,12 @@
         "title": "Page Not Found",
         "description": "Sorry, the page you are looking for does not exist or has been removed.",
         "backToHome": "Back to Home"
+    },
+    "external": {
+        "leaving": "Leaving Brainfy",
+        "warning": "You are about to leave Brainfy. Please verify the destination URL below to ensure it's trustworthy.",
+        "destination": "Destination URL:",
+        "continue": "Continue",
+        "goBack": "Go Back"
     }
 }

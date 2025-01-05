@@ -56,7 +56,7 @@ export async function generateUrlsetXML() {
     <url>
         <loc>${baseUrl}/en/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
         <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
@@ -65,11 +65,27 @@ export async function generateUrlsetXML() {
     <url>
         <loc>${baseUrl}/zh/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
-        <priority>0.9</priority>
+        <priority>0.7</priority>
         <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
+    </url>
+    <url>
+        <loc>${baseUrl}/en/redirect</loc>
+        <priority>0.1</priority>
+        <lastmod>${currentDate}</lastmod>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/redirect"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/redirect"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/redirect"/>
+    </url>
+    <url>
+        <loc>${baseUrl}/zh/redirect</loc>
+        <priority>0.1</priority>
+        <lastmod>${currentDate}</lastmod>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/redirect"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/redirect"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/redirect"/>
     </url>${historyUrls}
 </urlset>`
 }

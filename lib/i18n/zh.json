@@ -27,5 +27,12 @@
         "title": "页面未找到",
         "description": "抱歉，您访问的页面不存在或已被移除。",
         "backToHome": "返回首页"
-    }
+    },
+    "external": {
+        "leaving": "即将离开 Brainfy",
+        "warning": "您即将离开 Brainfy，请注意核实该链接信息的真伪。",
+        "destination": "目标链接：",
+        "continue": "继续访问",
+        "goBack": "返回"
+      }
 }
