@@ -12,10 +12,18 @@ export function ExternalLinkRedirect({ lang }: { lang: Language }) {
     const [dict, setDict] = useState<any>(null)
 
     useEffect(() => {
-        getDictionary(lang).then(setDict)
+        getDictionary(lang)
+            .then(result => {
+                setDict(result)
+            })
+            .catch(error => {
+                console.error('Error loading dictionary:', error)
+            })
     }, [lang])
 
-    if (!dict || !url) return null
+    if (!dict || !url) {
+        return null
+    }
 
     return (
         <div className="min-h-screen bg-neutral-50 flex items-center justify-center p-4">
@@ -47,7 +55,7 @@ export function ExternalLinkRedirect({ lang }: { lang: Language }) {
                         {dict.external.destination}
                     </span>
                     <div className="text-neutral-800 break-all font-medium">
-                        {url}
+                        {url.length > 300 ? `${url.substring(0, 300)}...` : url}
                     </div>
                 </div>
 

@@ -3,9 +3,15 @@ import type { Language } from '@/lib/constants'
 import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 
-// 生成动态 metadata
-export async function generateMetadata({ params }: { params: { lang: Language } }): Promise<Metadata> {
-    const dict = await getDictionary(params.lang)
+interface PageProps {
+    params: Promise<{ lang: Language }>
+}
+
+export async function generateMetadata(
+    { params }: PageProps
+): Promise<Metadata> {
+    const { lang } = await params
+    const dict = await getDictionary(lang)
     
     return {
         title: dict.external.leaving,
@@ -14,6 +20,7 @@ export async function generateMetadata({ params }: { params: { lang: Language } 
     }
 }
 
-export default function RedirectPage({ params }: { params: { lang: Language } }) {
-    return <ExternalLinkRedirect lang={params.lang} />
-} 
+export default async function RedirectPage(props: PageProps) {
+    const { lang } = await props.params
+    return <ExternalLinkRedirect lang={lang} />
+}
