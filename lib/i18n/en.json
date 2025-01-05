@@ -4,9 +4,9 @@
     "share": "Share",
     "noData": "No content available",
     "metadata": {
-        "title": "Brainfy - AI-powered Intelligent Content Aggregator",
-        "description": "Browse news from the best news sources with our AI news aggregator. Track major stories and explore connected events chronologically in one place.",
-        "ogDescription": "Browse news from the best news sources with our AI news aggregator. Track major stories and explore connected events chronologically in one place."
+        "title": "Brainfy - AI-powered Intelligent Content Aggregator and Abstract Generator",
+        "description": "Browse news from the best news sources with our AI news aggregator and abstract generator. Track major stories and explore connected events chronologically in one place.",
+        "ogDescription": "Browse news from the best news sources with our AI news aggregator and abstract generator. Track major stories and explore connected events chronologically in one place."
     },
     "time": {
         "today": "Today",
@@ -34,5 +34,11 @@
         "destination": "Destination URL:",
         "continue": "Continue",
         "goBack": "Go Back"
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Here are some common questions about our service",
+        "contactText": "Didn't find the answer you are looking for?",
+        "contactLink": "Contact our support"
     }
 }

@@ -1,4 +1,3 @@
-import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
 import { ArticleMain } from './components/ArticleMain'
@@ -8,6 +7,8 @@ import { Article } from '@/types/news'
 import { FloatingToc, TocItem } from './components/FloatingToc'
 import { slugify } from './utils/slugify'
 import { NavBar } from './components/NavBar'
+import { getNewsRelatedFaqs } from './utils/newsRelatedFaqs'
+import { Faq } from './components/Faq'
 
 // 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
@@ -31,6 +32,7 @@ export default async function Page({
     const { lang } = await params;
     const clusters = await getLatestNews();
     const dict = await getDictionary(lang);
+    const faqItems = getNewsRelatedFaqs(lang);
 
     if (!clusters.length) {
         return <div className="text-center py-10">{dict.noData}</div>;
@@ -77,6 +79,8 @@ export default async function Page({
                     );
                 })}
             </div>
+            
+            <Faq dict={dict} items={faqItems} lang={lang} />
         </main>
     );
 } 
