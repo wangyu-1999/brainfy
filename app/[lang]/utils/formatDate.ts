@@ -121,7 +121,10 @@ export function formatUrlDisplayDate(dateString: string, lang: 'zh' | 'en' = 'en
 export function formatUrlDate(dateStr: string) {
     if (!dateStr) return '';
     
-    // 处理 YYYY-MM-DD_HH-mm-ss_UTC 格式
-    // 返回 YYYY-MM-DD_HH-mm-ss 格式
-    return dateStr.split('_UTC')[0];
+    // 只处理 YYYY-MM-DD_HH-mm-ss_UTC 格式
+    if (dateStr.includes('_UTC')) {
+        return dateStr.split('_UTC')[0].replace(/_/g, '-');
+    }
+    
+    return dateStr;
 } 
