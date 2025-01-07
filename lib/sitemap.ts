@@ -17,7 +17,6 @@ export async function generateUrlsetXML() {
     <url>
         <loc>${baseUrl}/en/history/${date}</loc>
         <priority>0.8</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history/${date}"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history/${date}"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history/${date}"/>
@@ -25,7 +24,6 @@ export async function generateUrlsetXML() {
     <url>
         <loc>${baseUrl}/zh/history/${date}</loc>
         <priority>0.8</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history/${date}"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history/${date}"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history/${date}"/>
@@ -74,7 +72,6 @@ export async function generateUrlsetXML() {
     <url>
         <loc>${baseUrl}/en/redirect</loc>
         <priority>0.1</priority>
-        <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/redirect"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/redirect"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/redirect"/>
@@ -82,7 +79,6 @@ export async function generateUrlsetXML() {
     <url>
         <loc>${baseUrl}/zh/redirect</loc>
         <priority>0.1</priority>
-        <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/redirect"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/redirect"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/redirect"/>
