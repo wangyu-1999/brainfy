@@ -7,10 +7,9 @@ import Link from 'next/link'
 import { formatHistoryDate } from '../../utils/formatDate'
 import { FloatingToc, TocItem } from '../../components/FloatingToc'
 import { slugify } from '../../utils/slugify'
-import { Article } from '@/types/news'
-import { formatUrlDate } from '../../utils/formatUrlDate'
 import { NavBar } from '../../components/NavBar'
 import { formatUrlDisplayDate } from '../../utils/formatDate'
+import { Article } from '@/types/news'
 
 // 简化类型定义
 type PageProps = {
@@ -19,11 +18,19 @@ type PageProps = {
 }
 
 export async function generateStaticParams() {
-    const allNews = await getAllNewsWithoutContent()
-    return allNews.flatMap(group => [
-        { lang: 'zh', date: formatUrlDate(group.date) },
-        { lang: 'en', date: formatUrlDate(group.date) }
-    ])
+    const allNews = await getAllNewsWithoutContent();
+    
+    const uniqueDates = new Set(
+        allNews.map(group => {
+            const [datePart, timePart] = group.date.split('_');
+            return `${datePart}-${timePart.replace(/-/g, '-').replace('_UTC', '')}`;
+        })
+    );
+    
+    return Array.from(uniqueDates).flatMap(date => [
+        { lang: 'zh', date },
+        { lang: 'en', date }
+    ]);
 }
 
 export const revalidate = 43200
@@ -31,7 +38,16 @@ export const revalidate = 43200
 export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
-    const newsGroup = await getNewsByDate(date);
+    
+    // 获取所有新闻时间点
+    const allNews = await getAllNewsWithoutContent();
+    const targetNews = allNews
+        .map(news => news.date)
+        .filter(newsDate => newsDate.startsWith(date))
+        .sort()
+        .pop();
+
+    const newsGroup = targetNews ? await getNewsByDate(targetNews) : null;
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const formattedDate = formatUrlDisplayDate(date, lang);
 
@@ -73,7 +89,11 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function HistoryDetailPage({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
-    const newsGroup = await getNewsByDate(date);
+    
+    // 将 URL 格式转换回原始格式
+    const originalDate = date.replace(/-(\d{2})-(\d{2})-(\d{2})$/, '_$1-$2-$3_UTC');
+    
+    const newsGroup = await getNewsByDate(originalDate);
 
     if (!newsGroup) {
         return (
@@ -110,7 +130,9 @@ export default async function HistoryDetailPage({ params }: PageProps) {
                         </svg>
                         <span>{dict.history.backToArchives}</span>
                     </Link>
-                    <time className="text-sm text-neutral-500">{formatHistoryDate(newsGroup.date)}</time>
+                    <time className="text-sm text-neutral-500">
+                        {formatHistoryDate(originalDate, lang)}
+                    </time>
                 </div>
 
                 <FloatingToc items={tocItems} lang={lang} />

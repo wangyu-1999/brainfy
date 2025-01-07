@@ -1,5 +1,5 @@
-import { Article } from '@/types/news'
 import { formatDate, formatHistoryDate } from '../utils/formatDate'
+import { Article } from '../../../types/news'
 
 export async function RelatedNewsItem({ article, lang, useRelativeTime = true }: {
     article: Article;
@@ -9,8 +9,8 @@ export async function RelatedNewsItem({ article, lang, useRelativeTime = true }:
     if (!article.content) return null;
 
     const formattedDate = useRelativeTime
-        ? await formatDate(article.content.date, lang)
-        : formatHistoryDate(article.content.date);
+        ? formatDate(article.content.date, lang)
+        : formatHistoryDate(article.content.date, lang);
 
     return (
         <div>

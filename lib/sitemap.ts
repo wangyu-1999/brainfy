@@ -1,7 +1,7 @@
 import { REVALIDATE_TIME_HOURS } from '@/lib/constants'
 import { NextResponse } from 'next/server'
 import { getAllNewsWithoutContent } from '@/app/[lang]/utils/getLatestNews'
-import { formatUrlDate } from '@/app/[lang]/utils/formatUrlDate'
+import { formatUrlDate } from '@/app/[lang]/utils/formatDate'
 
 export async function generateUrlsetXML() {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL

@@ -9,20 +9,21 @@ export interface NewsContent {
     english_summary: string;
 }
 
-export interface Article {
-    url: string;
-    similarity: number;
-    content: NewsContent;
-}
-
-export interface NewsCluster {
-    size: number;
-    articles: Article[];
-}
 
 export interface ClusterEntity {
-    timestamp: string;
-    clusters: string;
-    partitionKey: string;
-    rowKey: string;
+  clusters: {
+    size: number;
+    articles: {
+      url: string;
+      content: NewsContent;
+    }[];
+  }[];
+  timestamp: string;
+  partitionKey: string;
+  rowKey: string;
+}
+
+export interface Article {
+    url: string;
+    content: NewsContent;
 }

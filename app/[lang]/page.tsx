@@ -2,20 +2,17 @@ import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
 import { ArticleMain } from './components/ArticleMain'
 import { RelatedArticles } from './components/RelatedArticles'
-import { getLatestNews } from './utils/getLatestNews'
-import { Article } from '@/types/news'
+import { getLatestNews } from "./utils/getLatestNews";
 import { FloatingToc, TocItem } from './components/FloatingToc'
 import { slugify } from './utils/slugify'
 import { NavBar } from './components/NavBar'
 import { getNewsRelatedFaqs } from './utils/newsRelatedFaqs'
 import { Faq } from './components/Faq'
 
-// 使用 Promise 类型的 params
 type PageParams = Promise<{ lang: Language }>
 
 export const revalidate = 43200
 
-// 静态路由参数生成
 export function generateStaticParams() {
     return [
         { lang: 'zh' },
@@ -23,7 +20,6 @@ export function generateStaticParams() {
     ]
 }
 
-// 页面组件
 export default async function Page({
     params,
 }: {
@@ -41,8 +37,7 @@ export default async function Page({
     // 为每个新闻组创建目录项
     const tocItems = clusters
         .map((cluster) => {
-            const title = cluster.articles[0]?.content?.title_en ||
-                cluster.articles[0]?.content?.title_cn;
+            const title = cluster.articles[0]?.content?.title_en
 
             return title ? {
                 id: slugify(title),
@@ -61,21 +56,29 @@ export default async function Page({
 
                 {clusters.map((cluster, index) => {
                     const [main, ...related] = cluster.articles;
-                    const title = main?.content?.title_en || main?.content?.title_cn;
+                    const title = main?.content?.title_en
                     const articleId = title ? slugify(title) : `article-${index}`;
 
-                    return main?.content && (
+                    return (
+                      main?.content && (
                         <section
-                            key={main.url}
-                            id={articleId}
-                            className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden scroll-mt-20"
+                          key={main.url}
+                          id={articleId}
+                          className="mb-12 bg-white shadow-sm rounded-sm overflow-hidden scroll-mt-20"
                         >
-                            <ArticleMain content={main.content} url={main.url} lang={lang} />
-                            <RelatedArticles
-                                articles={related.filter((article): article is Article => article.content !== null)}
-                                lang={lang}
-                            />
+                          <ArticleMain
+                            content={main.content}
+                            url={main.url}
+                            lang={lang}
+                          />
+                          <RelatedArticles
+                            articles={related.filter(
+                              (articleId) => articleId.content !== null
+                            )}
+                            lang={lang}
+                          />
                         </section>
+                      )
                     );
                 })}
             </div>

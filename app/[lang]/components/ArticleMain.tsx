@@ -45,7 +45,12 @@ export function ArticleMain({ content, url, lang, useRelativeTime = true }: {
                         </svg>
                     </a>
                     <span>•</span>
-                    <time>{useRelativeTime ? formatDate(content.date, lang) : formatHistoryDate(content.date)}</time>
+                    <time>
+                        {useRelativeTime 
+                            ?  formatDate(content.date, lang) 
+                            : formatHistoryDate(content.date, lang)
+                        }
+                    </time>
                 </div>
                 <ShareButton lang={lang} />
             </div>
