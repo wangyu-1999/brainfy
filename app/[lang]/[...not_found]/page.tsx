@@ -5,16 +5,14 @@ import { NavBar } from '../components/NavBar'
 
 
 interface NotFoundCatchAllProps {
-    params: {
+    params: Promise<{
         lang: "en" | "zh",
-    }
+    }>;
 }
 
 export async function generateMetadata({
     params,
-}: {
-    params: Promise<{ lang: "en" | "zh" }>
-}) {
+}: NotFoundCatchAllProps) {
     const {lang} = await params
     const dictionary = await getDictionary(lang)
     

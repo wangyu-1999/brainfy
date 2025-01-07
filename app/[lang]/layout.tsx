@@ -66,19 +66,24 @@ export const viewport = {
   
 
 
+interface LayoutProps {
+  children: React.ReactNode;
+  params: Promise<{
+    lang: string;
+  }>;
+}
+
 export default async function Layout({
-    children,
-    params,
-}: {
-    children: React.ReactNode,
-    params: { lang: string },
-}) {
-    const { lang } = await params
-    return (
-        <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
-            <body className="bg-white text-neutral-900 antialiased">
-                {children}
-            </body>
-        </html>
-    )
+  children,
+  params
+}: LayoutProps) {
+  const { lang } = await params;
+  
+  return (
+    <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
+      <body className="bg-white text-neutral-900 antialiased">
+        {children}
+      </body>
+    </html>
+  );
 } 
