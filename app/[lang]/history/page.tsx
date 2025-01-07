@@ -4,7 +4,6 @@ import { Language } from '@/lib/constants'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
 import Link from 'next/link'
 import { getClusterCounts, getEnrichedClustersIndex } from "@/lib/githubService";
-import { getNewsByDate } from '../utils/getLatestNews'
 
 type PageParams = Promise<{ lang: Language }>;
 
@@ -99,7 +98,7 @@ export default async function HistoryPage({ params }: { params: PageParams }) {
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 py-6">
-        <p className="text-sm text-neutral-400 mb-8 italic">
+        <p className="text-sm text-neutral-600 mb-8 italic">
           {dict.history.intro}
         </p>
 
