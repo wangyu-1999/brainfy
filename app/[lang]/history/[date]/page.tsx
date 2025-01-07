@@ -123,14 +123,14 @@ export default async function HistoryDetailPage({ params }: PageProps) {
                 <div className="mb-8 flex items-center justify-between">
                     <Link
                         href={`/${lang}/history`}
-                        className="flex items-center gap-1.5 text-neutral-500 hover:text-[#bb1919] transition-colors text-sm"
+                        className="flex items-center gap-1.5 text-neutral-600 hover:text-[#bb1919] transition-colors text-sm"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="15 18 9 12 15 6" />
                         </svg>
                         <span>{dict.history.backToArchives}</span>
                     </Link>
-                    <time className="text-sm text-neutral-500">
+                    <time className="text-sm text-neutral-600">
                         {formatHistoryDate(originalDate, lang)}
                     </time>
                 </div>
