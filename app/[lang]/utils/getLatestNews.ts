@@ -32,7 +32,14 @@ export async function getClusterCounts(): Promise<Record<string, number>> {
 // 获取首页最新新闻
 export async function getLatestNews() {
   const index = await getEnrichedClustersIndex();
-  const latest = index[index.length - 1];
+  // 对日期进行排序，确保最新的日期在前
+  const sortedIndex = [...index].sort((a, b) => {
+    // 将日期字符串转换为可比较的格式
+    const dateA = a.replace(/_/g, ' ').replace(/-/g, ':');
+    const dateB = b.replace(/_/g, ' ').replace(/-/g, ':');
+    return dateB.localeCompare(dateA);
+  });
+  const latest = sortedIndex[0];
   const res = await getEnrichedCluster(latest);
   if (res) {
     return res.clusters;
