@@ -1,23 +1,36 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { getDictionary } from '@/lib/i18n/dictionaries'
-import { useEffect, useState } from 'react'
-import { NavBar } from './[lang]/components/NavBar'
+import { NavBar } from '../components/NavBar'
 
-export default function NotFound() {
-    const pathname = usePathname()
-    const lang = pathname.startsWith('/zh') ? 'zh' : 'en'
-    const [dictionary, setDictionary] = useState<any>(null)
 
-    useEffect(() => {
-        getDictionary(lang).then(setDictionary)
-    }, [lang])
+interface NotFoundCatchAllProps {
+    params: {
+        lang: "en" | "zh",
+    }
+}
 
-    if (!dictionary) return null
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ lang: "en" | "zh" }>
+}) {
+    const {lang} = await params
+    const dictionary = await getDictionary(lang)
     
+    return {
+        title: dictionary.notFound.title,
+        description: dictionary.notFound.description,
+        robots: {
+            index: false,
+            follow: false
+        }
+    }
+}
+
+export default async function NotFoundCatchAll({ params }: NotFoundCatchAllProps) {
+    const {lang} = await params
+    const dictionary = await getDictionary(lang)
     return (
         <div>
             <NavBar 
@@ -55,4 +68,4 @@ export default function NotFound() {
             </main>
         </div>
     )
-}
+} 

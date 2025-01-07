@@ -1,6 +1,8 @@
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Metadata } from 'next'
 import { Language } from '@/lib/constants'
+import { Noto_Sans, Noto_Serif } from 'next/font/google'
+
 // 生成 metadata
 export async function generateMetadata({
     params,
@@ -47,10 +49,36 @@ export async function generateMetadata({
 }
 
 
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+  }
+  
+  const notoSans = Noto_Sans({
+    subsets: ['latin'],
+    weight: ['400', '500', '700'],
+  })
+  
+  const notoSerif = Noto_Serif({
+    subsets: ['latin'],
+    weight: ['700'],
+  })
+  
+
+
 export default async function Layout({
     children,
+    params,
 }: {
     children: React.ReactNode,
+    params: { lang: string },
 }) {
-    return children
+    const { lang } = await params
+    return (
+        <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
+            <body className="bg-white text-neutral-900 antialiased">
+                {children}
+            </body>
+        </html>
+    )
 } 
