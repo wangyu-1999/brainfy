@@ -1,7 +1,7 @@
-import { ExternalLinkRedirect } from '../components/ExternalLinkRedirect'
 import type { Language } from '@/lib/constants'
 import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
+import { ExternalLinkRedirect } from '../../components/ExternalLinkRedirect'
 
 interface PageProps {
     params: Promise<{ lang: Language }>

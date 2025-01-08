@@ -23,12 +23,6 @@ export async function getNewsByDate(dateTime: string) {
   }
 }
 
-// 获取每个文件对应的 cluster 数量
-export async function getClusterCounts(): Promise<Record<string, number>> {
-  const counts = await getClusterCounts();
-  return counts;
-}
-
 // 获取首页最新新闻
 export async function getLatestNews() {
   const index = await getEnrichedClustersIndex();
