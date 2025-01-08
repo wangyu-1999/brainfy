@@ -7,6 +7,7 @@ interface PageProps {
     params: Promise<{ lang: Language }>
 }
 
+
 export async function generateMetadata(
     { params }: PageProps
 ): Promise<Metadata> {
