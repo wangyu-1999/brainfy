@@ -1,16 +1,15 @@
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
-import { getAllNewsWithoutContent, getNewsByDate } from '../../../utils/getLatestNews'
-import { ArticleMain } from '../../../components/ArticleMain'
-import { RelatedArticles } from '../../../components/RelatedArticles'
+import { ArticleMain } from '@/app/[lang]/components/ArticleMain'
+import { RelatedArticles } from '@/app/[lang]/components/RelatedArticles'
 import Link from 'next/link'
-import { formatHistoryDate } from '../../../utils/formatDate'
-import { FloatingToc, TocItem } from '../../../components/FloatingToc'
-import { slugify } from '../../../utils/slugify'
-import { formatUrlDisplayDate } from '../../../utils/formatDate'
+import { FloatingToc, TocItem } from '@/app/[lang]/components/FloatingToc'
 import { Article } from '@/types/news'
+import { getAllNewsWithoutContent, getNewsByDate } from '../../utils/getLatestNews'
+import { formatHistoryDate, formatUrlDisplayDate } from '../../utils/formatDate'
+import { slugify } from '../../utils/slugify'
 
-// 简化类型定义
+// Simplified type definition
 type PageProps = {
     params: Promise<{ lang: Language; date: string }>;
     searchParams: Promise<Record<string, string | string[] | undefined>>;
