@@ -21,7 +21,7 @@ export async function FloatingToc({ items, lang }: FloatingTocProps) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </div>
-            <div className="w-64 mr-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm p-4 max-h-[calc(100vh-120px)] overflow-y-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+            <div className="w-52 mr-0 bg-white/90 backdrop-blur-sm rounded-lg shadow-sm p-4 max-h-[calc(100vh-120px)] overflow-y-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
                 <div className="text-lg font-bold mb-4 text-neutral-900">
                     {dict.toc.title}
                 </div>
