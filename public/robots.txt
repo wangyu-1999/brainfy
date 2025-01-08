@@ -14,9 +14,9 @@ Disallow: /private/*.xml$
 Disallow: /*?*
 Disallow: /404
 Disallow: /not-found
-Disallow: /*/redirect
+Disallow: /*redirect
 
-Crawl-delay: 240
+Crawl-delay: 60
 
 Sitemap: https://www.brainfy.top/sitemap.xml
 Sitemap: https://www.brainfy.top/sitemap_index.xml 

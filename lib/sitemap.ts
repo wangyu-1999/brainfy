@@ -15,18 +15,18 @@ export async function generateUrlsetXML() {
         const date = formatUrlDate(group.date)
         return `
     <url>
-        <loc>${baseUrl}/en/history/${date}</loc>
+        <loc>${baseUrl}/en/news/history/${date}</loc>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history/${date}"/>
     </url>
     <url>
-        <loc>${baseUrl}/zh/history/${date}</loc>
+        <loc>${baseUrl}/zh/news/history/${date}</loc>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history/${date}"/>
     </url>`
     }).join('\n')
 
@@ -34,54 +34,54 @@ export async function generateUrlsetXML() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
-        <loc>${baseUrl}/en</loc>
+        <loc>${baseUrl}/en/news</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
         <lastmod>${currentDate}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news"/>
     </url>
     <url>
-        <loc>${baseUrl}/zh</loc>
+        <loc>${baseUrl}/zh/news</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
         <lastmod>${currentDate}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news"/>
     </url>
     <url>
-        <loc>${baseUrl}/en/history</loc>
+        <loc>${baseUrl}/en/news/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.7</priority>
         <lastmod>${currentDate}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history"/>
     </url>
     <url>
-        <loc>${baseUrl}/zh/history</loc>
+        <loc>${baseUrl}/zh/news/history</loc>
         <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.7</priority>
         <lastmod>${currentDate}</lastmod>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/history"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/history"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/history"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history"/>
     </url>
     <url>
-        <loc>${baseUrl}/en/redirect</loc>
+        <loc>${baseUrl}/en/news/redirect</loc>
         <priority>0.1</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/redirect"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/redirect"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/redirect"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/redirect"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/redirect"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/redirect"/>
     </url>
     <url>
-        <loc>${baseUrl}/zh/redirect</loc>
+        <loc>${baseUrl}/zh/news/redirect</loc>
         <priority>0.1</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/redirect"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/redirect"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/redirect"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/redirect"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/redirect"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/redirect"/>
     </url>${historyUrls}
 </urlset>`
 }

@@ -22,13 +22,13 @@ export async function generateMetadata({
     description: dict.history.description,
     alternates: {
       languages: {
-        en: `${baseUrl}/en/history`,
-        zh: `${baseUrl}/zh/history`,
-        "x-default": `${baseUrl}/en/history`,
+        en: `${baseUrl}/en/news/history`,
+        zh: `${baseUrl}/zh/news/history`,
+        "x-default": `${baseUrl}/en/news/history`,
       },
     },
     openGraph: {
-      url: `${baseUrl}/${lang}/history`,
+      url: `${baseUrl}/${lang}/news/history`,
     },
   };
 }
@@ -112,7 +112,7 @@ export default async function HistoryPage({ params }: { params: PageParams }) {
                     .map((group) => (
                       <Link
                         key={group.date}
-                        href={`/${lang}/history/${group.date.replace('_', '-').replace(/_UTC$/, '').replace(/-/g, '-')}`}
+                        href={`/${lang}/news/history/${group.date.replace('_', '-').replace(/_UTC$/, '').replace(/-/g, '-')}`}
                         className="block bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 group"
                       >
                         <div className="p-4 flex items-center justify-between gap-4">

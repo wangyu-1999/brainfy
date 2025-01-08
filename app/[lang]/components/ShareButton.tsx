@@ -1,11 +1,54 @@
-export function ShareButton({ lang }: { lang: 'zh' | 'en' }) {
+'use client'
+
+import { useState } from 'react';
+
+interface ShareButtonProps {
+    lang: 'zh' | 'en';
+    title: string;
+    summary: string;
+    url: string;
+}
+
+export function ShareButton({ lang, title, summary, url }: ShareButtonProps) {
+    const [showTooltip, setShowTooltip] = useState(false);
+
+    const handleShare = async () => {
+        // 构建分享文本
+        const shareText = `${title}\n\n${summary}\n\nSource:${url}`;
+        
+        try {
+            await navigator.clipboard.writeText(shareText);
+            setShowTooltip(true);
+            
+            // 3秒后隐藏提示
+            setTimeout(() => {
+                setShowTooltip(false);
+            }, 3000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
+
     return (
-        <button className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 hover:text-[#bb1919]">
-            <span className="sr-only">{lang === 'zh' ? '分享' : 'Share'}</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-        </button>
+        <div className="relative">
+            <button 
+                onClick={handleShare}
+                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-600 hover:text-[#bb1919] transition-colors"
+            >
+                <span className="sr-only">{lang === 'zh' ? '分享' : 'Share'}</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+            </button>
+            
+            {showTooltip && (
+                <div className="absolute bottom-full right-0 mb-2 w-max">
+                    <div className="bg-neutral-800 text-white text-sm py-1 px-3 rounded shadow-lg">
+                        {lang === 'zh' ? '已复制到剪贴板' : 'Copied to clipboard'}
+                    </div>
+                </div>
+            )}
+        </div>
     );
 } 

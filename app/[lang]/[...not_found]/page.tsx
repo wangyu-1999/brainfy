@@ -50,7 +50,7 @@ export default async function NotFoundCatchAll({ params }: NotFoundCatchAllProps
                     </p>
                     
                     <Link
-                        href={`/${lang}`}
+                        href={`/${lang}/news`}
                         className="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-[#bb1919] hover:bg-[#a31717] transition-colors duration-200"
                     >
                         {dictionary.notFound.backToHome}

@@ -20,14 +20,14 @@ export function NavBar({ lang, dict }: NavBarProps) {
             <div className="max-w-4xl mx-auto px-4">
                 <div className="h-14 flex items-center justify-between">
                     <h1 className="flex items-center gap-4">
-                        <Link href={`/${lang}`} className="text-xl font-bold text-[#bb1919] font-serif">
+                        <Link href={`/${lang}/news`} className="text-xl font-bold text-[#bb1919] font-serif">
                             {dict.title}
                         </Link>
                         {showHistoryLink && (
                             <>
                                 <span className="text-neutral-500">|</span>
                                 <Link
-                                    href={`/${lang}/history`}
+                                    href={`/${lang}/news/history`}
                                     className={`${isHistoryPage
                                         ? 'text-neutral-900'
                                         : 'text-neutral-600 hover:text-[#bb1919]'} transition-colors`}

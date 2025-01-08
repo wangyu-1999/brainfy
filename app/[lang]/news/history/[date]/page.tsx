@@ -18,8 +18,9 @@ type PageProps = {
 
 export async function generateStaticParams() {
     const allNews = await getAllNewsWithoutContent();
+    
     const uniqueDates = new Set(
-        allNews.map((group: {date: string}) => {
+        allNews.map(group => {
             const [datePart, timePart] = group.date.split('_');
             return `${datePart}-${timePart.replace(/-/g, '-').replace('_UTC', '')}`;
         })
@@ -40,8 +41,8 @@ export async function generateMetadata({ params }: PageProps) {
     // 获取所有新闻时间点
     const allNews = await getAllNewsWithoutContent();
     const targetNews = allNews
-        .map((news: {date: string}) => news.date)
-        .filter((newsDate: string) => newsDate.startsWith(date))
+        .map(news => news.date)
+        .filter(newsDate => newsDate.startsWith(date))
         .sort()
         .pop();
 
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: PageProps) {
     // 提取关键新闻标题
     const mainTitles = newsGroup?.clusters
         .slice(0, 3)
-        .map((cluster: {articles: Article[]}) => {
+        .map(cluster => {
             const title = lang === 'zh' 
                 ? cluster.articles[0]?.content?.title_cn 
                 : cluster.articles[0]?.content?.title_en;
@@ -102,8 +103,9 @@ export default async function HistoryDetailPage({ params }: PageProps) {
             </main>
         );
     }
+
     const tocItems: TocItem[] = newsGroup.clusters
-        .map((cluster: {articles: Article[]}, index: number) => {
+        .map((cluster, index) => {
             const title = lang === 'zh' ? cluster.articles[0]?.content?.title_cn : cluster.articles[0]?.content?.title_en;
             return title ? {
                 id: slugify(cluster.articles[0]?.content?.title_en || `article-${index}`),
@@ -117,7 +119,7 @@ export default async function HistoryDetailPage({ params }: PageProps) {
             <div className="max-w-4xl mx-auto px-4 py-6 relative">
                 <div className="mb-8 flex items-center justify-between">
                     <Link
-                        href={`/${lang}/history`}
+                        href={`/${lang}/news/history`}
                         className="flex items-center gap-1.5 text-neutral-600 hover:text-[#bb1919] transition-colors text-sm"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -132,7 +134,7 @@ export default async function HistoryDetailPage({ params }: PageProps) {
 
                 <FloatingToc items={tocItems} lang={lang} />
 
-                {newsGroup.clusters.map((cluster: {articles: Article[]}, index: number) => {
+                {newsGroup.clusters.map((cluster, index) => {
                     const [main, ...related] = cluster.articles;
                     if (!main?.content) return null;
 

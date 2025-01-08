@@ -28,7 +28,7 @@ export async function generateMetadata({
                     alt: dictionary.metadata.title
                 }
             ],
-            url: `${process.env.NEXT_PUBLIC_BASE_URL}/${resolvedParams.lang}`,
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/${resolvedParams.lang}/news`,
             title: dictionary.metadata.title,
             description: dictionary.metadata.ogDescription,
             siteName: dictionary.title,
@@ -37,9 +37,9 @@ export async function generateMetadata({
         },
         alternates: {
             languages: {
-                'en': `${process.env.NEXT_PUBLIC_BASE_URL}/en`,
-                'zh': `${process.env.NEXT_PUBLIC_BASE_URL}/zh`,
-                'x-default': `${process.env.NEXT_PUBLIC_BASE_URL}/en`
+                'en': `${process.env.NEXT_PUBLIC_BASE_URL}/en/news`,
+                'zh': `${process.env.NEXT_PUBLIC_BASE_URL}/zh/news`,
+                'x-default': `${process.env.NEXT_PUBLIC_BASE_URL}/en/news`
             }
         },
         robots: {

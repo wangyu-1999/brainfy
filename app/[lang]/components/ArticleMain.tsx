@@ -25,7 +25,7 @@ export function ArticleMain({ content, url, lang, useRelativeTime = true }: {
             </p>
             <div className="flex items-center justify-between text-sm text-neutral-500">
                 <div className="flex items-center gap-2">
-                    <a href={`/${lang}/redirect?url=${encodeURIComponent(url)}`}
+                    <a href={`/${lang}/news/redirect?url=${encodeURIComponent(url)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group inline-flex items-center font-medium hover:text-[#bb1919] transition-colors"
@@ -52,7 +52,12 @@ export function ArticleMain({ content, url, lang, useRelativeTime = true }: {
                         }
                     </time>
                 </div>
-                <ShareButton lang={lang} />
+                <ShareButton 
+                    lang={lang} 
+                    title={lang === 'zh' ? content.title_cn : content.title_en}
+                    summary={lang === 'zh' ? content.chinese_summary : content.english_summary}
+                    url={process.env.NEXT_PUBLIC_BASE_URL || ""}
+                />
             </div>
         </article>
     );
