@@ -5,7 +5,6 @@ import { RelatedArticles } from './components/RelatedArticles'
 import { getLatestNews } from "./utils/getLatestNews";
 import { FloatingToc, TocItem } from './components/FloatingToc'
 import { slugify } from './utils/slugify'
-import { NavBar } from './components/NavBar'
 import { getNewsRelatedFaqs } from './utils/newsRelatedFaqs'
 import { Faq } from './components/Faq'
 
@@ -50,7 +49,6 @@ export default async function Page({
 
     return (
         <main className="min-h-screen bg-neutral-100">
-            <NavBar lang={lang} dict={dict} />
             <div className="max-w-4xl mx-auto px-4 py-6 relative">
                 <FloatingToc items={tocItems} lang={lang} />
 

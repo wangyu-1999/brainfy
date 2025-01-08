@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { getDictionary } from '@/lib/i18n/dictionaries'
-import { NavBar } from '../components/NavBar'
-
 
 interface NotFoundCatchAllProps {
     params: Promise<{
@@ -31,11 +29,6 @@ export default async function NotFoundCatchAll({ params }: NotFoundCatchAllProps
     const dictionary = await getDictionary(lang)
     return (
         <div>
-            <NavBar 
-                lang={lang} 
-                dict={dictionary} 
-                showHistoryLink={false}
-            />
             <main className="min-h-[calc(100vh-3.5rem)] bg-neutral-100 flex items-center justify-center py-8">
                 <div className="max-w-lg mx-auto px-4 text-center">
                     <div className="relative w-48 h-48 mx-auto mb-6">

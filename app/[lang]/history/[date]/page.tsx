@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { formatHistoryDate } from '../../utils/formatDate'
 import { FloatingToc, TocItem } from '../../components/FloatingToc'
 import { slugify } from '../../utils/slugify'
-import { NavBar } from '../../components/NavBar'
 import { formatUrlDisplayDate } from '../../utils/formatDate'
 import { Article } from '@/types/news'
 
@@ -98,7 +97,6 @@ export default async function HistoryDetailPage({ params }: PageProps) {
     if (!newsGroup) {
         return (
             <main className="min-h-screen bg-neutral-100">
-                <NavBar lang={lang} dict={dict} isHistoryPage={true} />
                 <div className="max-w-4xl mx-auto px-4 py-6">
                     <div className="text-center py-10">{dict.noData}</div>
                 </div>
@@ -118,7 +116,6 @@ export default async function HistoryDetailPage({ params }: PageProps) {
 
     return (
         <main className="min-h-screen bg-neutral-100">
-            <NavBar lang={lang} dict={dict} isHistoryPage={true} />
             <div className="max-w-4xl mx-auto px-4 py-6 relative">
                 <div className="mb-8 flex items-center justify-between">
                     <Link

@@ -2,7 +2,8 @@ import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Metadata } from 'next'
 import { Language } from '@/lib/constants'
 import { Noto_Sans, Noto_Serif } from 'next/font/google'
-
+import Footer from './components/Footer'
+import { NavBar } from './components/NavBar'
 // 生成 metadata
 export async function generateMetadata({
     params,
@@ -78,11 +79,19 @@ export default async function Layout({
   params
 }: LayoutProps) {
   const { lang } = await params;
+  const dict = await getDictionary(lang as Language);
   
   return (
     <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
       <body className="bg-white text-neutral-900 antialiased">
-        {children}
+        <NavBar 
+          lang={lang as Language}
+          dict={dict}
+        />
+        <main>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

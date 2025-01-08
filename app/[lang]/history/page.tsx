@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
-import { LanguageSwitcher } from '../components/LanguageSwitcher'
 import Link from 'next/link'
 import { getClusterCounts, getEnrichedClustersIndex } from "@/lib/githubService";
 
@@ -77,26 +76,6 @@ export default async function HistoryPage({ params }: { params: PageParams }) {
 
   return (
     <main className="min-h-screen bg-neutral-100">
-      <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="h-14 flex items-center justify-between">
-            <h1 className="flex items-center gap-4">
-              <Link
-                href={`/${lang}`}
-                className="text-xl font-bold text-[#bb1919] font-serif"
-              >
-                {dict.title}
-              </Link>
-              <span className="text-neutral-500">|</span>
-              <span className="text-lg text-neutral-900">
-                {dict.history.title}
-              </span>
-            </h1>
-            <LanguageSwitcher currentLang={lang} />
-          </div>
-        </div>
-      </nav>
-
       <div className="max-w-4xl mx-auto px-4 py-6">
         <p className="text-sm text-neutral-600 mb-8 italic">
           {dict.history.intro}
