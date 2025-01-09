@@ -2,7 +2,7 @@ import { REVALIDATE_TIME_HOURS } from '@/lib/constants'
 import { NextResponse } from 'next/server'
 import { getAllNewsWithoutContent } from '@/app/[lang]/utils/getLatestNews'
 import { formatUrlDate } from '@/app/[lang]/utils/formatDate'
-import { getWeeklyNewsFiles } from "@/lib/githubService"
+import { getWeeklyNews, getWeeklyNewsFiles } from "@/lib/githubService"
 
 export async function generateUrlsetXML() {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -14,13 +14,43 @@ export async function generateUrlsetXML() {
     // 获取所有周报文件
     const weeklyFiles = await getWeeklyNewsFiles()
     
-    // 生成周报页面的 URL
-    const weeklyUrls = weeklyFiles.map(filename => {
-        // 文件名格式为 "YYYY-WW", URL 中的周数需要 +1
+    // 生成周报页面和对应历史页面的 URL
+    const weeklyUrls = await Promise.all(weeklyFiles.map(async filename => {
         const [year, week] = filename.split('-')
         const displayWeek = String(Number(week) + 1).padStart(2, '0')
         const urlPath = `${year}-${displayWeek}`
         
+        // 获取该周的日期范围
+        const weekData = await getWeeklyNews(filename)
+        if (!weekData) return ''
+
+        // 生成该周对应的所有历史页面路径
+        const historyDates = allNews
+            .filter(news => {
+                const newsDate = new Date(news.date.split('_')[0])
+                return newsDate >= new Date(weekData.date_range.earliest) && 
+                       newsDate <= new Date(weekData.date_range.latest)
+            })
+            .map(news => formatUrlDate(news.date))
+
+        // 为该周的每个历史页面生成 URL，并设置 canonical 到周报
+        const historyUrlsForWeek = historyDates.map(date => `
+    <url>
+        <loc>${baseUrl}/en/news/history/${date}</loc>
+        <link rel="canonical" href="${baseUrl}/en/news/weekly/${urlPath}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history/${date}"/>
+    </url>
+    <url>
+        <loc>${baseUrl}/zh/news/history/${date}</loc>
+        <link rel="canonical" href="${baseUrl}/zh/news/weekly/${urlPath}"/>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history/${date}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history/${date}"/>
+    </url>`).join('\n')
+
+        // 周报页面的 URL
         return `
     <url>
         <loc>${baseUrl}/en/news/weekly/${urlPath}</loc>
@@ -35,28 +65,8 @@ export async function generateUrlsetXML() {
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/weekly/${urlPath}"/>
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/weekly/${urlPath}"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/weekly/${urlPath}"/>
-    </url>`
-    }).join('\n')
-
-    // 生成历史页面的 URL
-    const historyUrls = allNews.map(group => {
-        const date = formatUrlDate(group.date)
-        return `
-    <url>
-        <loc>${baseUrl}/en/news/history/${date}</loc>
-        <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history/${date}"/>
-    </url>
-    <url>
-        <loc>${baseUrl}/zh/news/history/${date}</loc>
-        <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history/${date}"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history/${date}"/>
-    </url>`
-    }).join('\n')
+    </url>${historyUrlsForWeek}`
+    }))
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -97,8 +107,7 @@ export async function generateUrlsetXML() {
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history"/>
     </url>
-    ${weeklyUrls}
-    ${historyUrls}
+    ${weeklyUrls.join('\n')}
 </urlset>`
 }
 

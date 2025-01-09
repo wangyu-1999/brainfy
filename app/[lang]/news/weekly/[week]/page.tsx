@@ -43,15 +43,17 @@ export async function generateMetadata({ params }: PageProps) {
     return {
         title: `${title} - ${dict.weekly.pageTitle}`,
         description,
+        metadataBase: new URL(baseUrl || 'http://localhost:3000'),
         alternates: {
+            canonical: `/${lang}/news/weekly/${week}`,
             languages: {
                 'en': `${baseUrl}/en/news/weekly/${week}`,
                 'zh': `${baseUrl}/zh/news/weekly/${week}`,
                 'x-default': `${baseUrl}/en/news/weekly/${week}`
-            },
-            openGraph: {
-                url: `${baseUrl}/${lang}/news/weekly/${week}`,
             }
+        },
+        openGraph: {
+            url: `${baseUrl}/${lang}/news/weekly/${week}`,
         }
     }
 }

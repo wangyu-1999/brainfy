@@ -40,7 +40,24 @@ export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);
     
-    // 获取所有新闻时间点
+    // 将 URL 格式转换回原始格式
+    const originalDate = date.replace(/-(\d{2})-(\d{2})-(\d{2})$/, '_$1-$2-$3_UTC');
+    const currentDate = new Date(originalDate.split('_')[0]);
+    const year = currentDate.getFullYear();
+    
+    // 获取周数
+    let weekNumber;
+    for (let i = 1; i <= 53; i++) {
+        const weekData = await getWeeklyNews(`${year}-${String(i).padStart(2, '0')}`);
+        if (weekData && 
+            new Date(weekData.date_range.earliest) <= currentDate && 
+            new Date(weekData.date_range.latest) >= currentDate) {
+            weekNumber = i + 1; // URL中的周数需要+1
+            break;
+        }
+    }
+
+    // 获取新闻数据
     const allNews = await getAllNewsWithoutContent();
     const targetNews = allNews
         .map(news => news.date)
@@ -63,26 +80,32 @@ export async function generateMetadata({ params }: PageProps) {
         })
         .filter(Boolean) || [];
 
-    // 构建更丰富的描述
     const pageDescription = mainTitles.length > 0
         ? `${dict.history.title}: ${mainTitles.join('. ')}. ${dict.history.dayDescription.replace('%date%', formattedDate)}`
         : `${dict.history.dayDescription.replace('%date%', date)}`;
 
-    // 构建SEO友好的标题
     const pageTitle = `${formattedDate} - ${dict.history.title}`;
+
+    const canonicalPath = weekNumber 
+        ? `/${lang}/news/weekly/${year}-${String(weekNumber).padStart(2, '0')}`
+        : `/${lang}/news/history/${date}`;
+    
+    console.log("canonicalUrl", canonicalPath)
 
     return {
         title: pageTitle,
         description: pageDescription,
+        metadataBase: new URL(baseUrl || 'http://localhost:3000'),
         alternates: {
+            canonical: canonicalPath,
             languages: {
                 'en': `${baseUrl}/en/news/history/${date}`,
                 'zh': `${baseUrl}/zh/news/history/${date}`,
                 'x-default': `${baseUrl}/en/news/history/${date}`
-            },
-            openGraph: {
-                url: `${baseUrl}/${lang}/news/history/${date}`,
             }
+        },
+        openGraph: {
+            url: `${baseUrl}/${lang}/news/history/${date}`,
         }
     }
 }
