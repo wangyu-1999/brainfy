@@ -4,6 +4,8 @@ import { Language } from '@/lib/constants'
 import { Noto_Sans, Noto_Serif } from 'next/font/google'
 import Footer from './components/Footer'
 import { NavBar } from './components/NavBar'
+import Script from 'next/script'
+
 // 生成 metadata
 export async function generateMetadata({
     params,
@@ -83,6 +85,21 @@ export default async function Layout({
   
   return (
     <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXJ2BZJED6"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXJ2BZJED6');
+          `}
+        </Script>
+      </head>
       <body className="bg-white text-neutral-900 antialiased">
         <NavBar 
           lang={lang as Language}

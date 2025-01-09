@@ -11,12 +11,12 @@ export function Faq({ dict, items, lang }: FaqProps) {
     return (
         <section className="border-t border-neutral-100 bg-white">
             <div className="max-w-4xl mx-auto px-4 py-6">
-                <header className="mb-6">
+                <div className="mb-6">
                     <h2 className="text-base font-medium text-neutral-900 mb-2">
                         {dict.faq.title}
                     </h2>
                     <div className="w-8 h-0.5 bg-[#bb1919]/20" />
-                </header>
+                </div>
 
                 <div className="grid gap-8 md:grid-cols-2">
                     {items.map((item, index) => (
