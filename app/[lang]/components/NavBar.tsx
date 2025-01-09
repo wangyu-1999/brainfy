@@ -16,25 +16,24 @@ export function NavBar({ lang, dict }: NavBarProps) {
     const showHistoryLink = !pathname.includes('/redirect')
 
     return (
-        <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
+        <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm backdrop-blur-sm">
             <div className="max-w-4xl mx-auto px-4">
-                <div className="h-14 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Link href={`/${lang}/news`} className="text-xl font-bold text-[#bb1919] font-serif">
+                <div className="h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                        <Link href={`/${lang}/news`} className="text-xl font-bold text-[#bb1919] font-serif hover:opacity-90 transition-opacity">
                             {dict.title}
                         </Link>
                         {showHistoryLink && (
-                            <>
-                                <span className="text-neutral-500">|</span>
+                            <div className="flex items-center gap-6">
                                 <Link
                                     href={`/${lang}/news/history`}
                                     className={`${isHistoryPage
-                                        ? 'text-neutral-900'
-                                        : 'text-neutral-600 hover:text-[#bb1919]'} transition-colors`}
+                                        ? 'text-neutral-900 font-medium'
+                                        : 'text-neutral-600 hover:text-[#bb1919]'} transition-colors py-2`}
                                 >
                                     {dict.history.title}
                                 </Link>
-                            </>
+                            </div>
                         )}
                     </div>
                     <LanguageSwitcher currentLang={lang} />
