@@ -50,6 +50,9 @@ export default async function Page({
     return (
         <main className="min-h-screen bg-neutral-100">
             <div className="max-w-4xl mx-auto px-4 py-6 relative">
+                <h1 className="text-xl text-neutral-700 font-medium mb-6">
+                    {dict.news.todayHeadlines}
+                </h1>
                 <FloatingToc items={tocItems} lang={lang} />
 
                 {clusters.map((cluster, index) => {

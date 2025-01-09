@@ -18,7 +18,9 @@
         "description": "Would you like to know more? Browse our comprehensive news archive, featuring chronologically organized news stories and related coverage from various sources. Access historical news content and track how stories developed over time.",
         "dayDescription": "Major news stories and events from %date%. Comprehensive coverage and analysis from global sources on this day.",
         "intro": "Would you like to know more? Browse our news archives to discover what happened in the past.",
-        "backToArchives": "Back to Archives"
+        "backToArchives": "Back to Archives",
+        "pageTitle": "News Archives",
+        "dateHeadline": "News from %date%"
     },
     "toc": {
         "title": "Contents"
@@ -40,5 +42,13 @@
         "subtitle": "Here are some common questions about our service",
         "contactText": "Didn't find the answer you are looking for?",
         "contactLink": "Contact our support"
+    },
+    "news": {
+        "todayHeadlines": "Today's Headlines"
+    },
+    "weekly": {
+        "pageTitle": "Weekly News Summary",
+        "weekNumber": "Week %week%, %year% News Review",
+        "description": "Week %week% of %year% global news highlights. Top stories: %headlines%, and more."
     }
 }

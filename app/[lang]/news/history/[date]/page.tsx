@@ -9,6 +9,7 @@ import { FloatingToc, TocItem } from '../../../components/FloatingToc'
 import { slugify } from '../../../utils/slugify'
 import { formatUrlDisplayDate } from '../../../utils/formatDate'
 import { Article } from '@/types/news'
+import { formatNewsDate } from '../../../utils/formatDate'
 
 // 简化类型定义
 type PageProps = {
@@ -117,7 +118,7 @@ export default async function HistoryDetailPage({ params }: PageProps) {
     return (
         <main className="min-h-screen bg-neutral-100">
             <div className="max-w-4xl mx-auto px-4 py-6 relative">
-                <div className="mb-8 flex items-center justify-between">
+                <div className="mb-6">
                     <Link
                         href={`/${lang}/news/history`}
                         className="flex items-center gap-1.5 text-neutral-600 hover:text-[#bb1919] transition-colors text-sm"
@@ -127,6 +128,12 @@ export default async function HistoryDetailPage({ params }: PageProps) {
                         </svg>
                         <span>{dict.history.backToArchives}</span>
                     </Link>
+                </div>
+
+                <div className="mb-8">
+                    <h1 className="text-xl text-neutral-700 font-medium mb-2">
+                        {dict.history.dateHeadline.replace('%date%', formatNewsDate(originalDate, lang))}
+                    </h1>
                     <time className="text-sm text-neutral-600">
                         {formatHistoryDate(originalDate, lang)}
                     </time>

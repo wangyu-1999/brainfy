@@ -18,7 +18,9 @@
         "description": "想了解更多？浏览我们完整的新闻档案库，按时间顺序整理的新闻报道和相关报道。查看历史新闻内容，追踪新闻事件的发展脉络。",
         "dayDescription": "%date%的重要新闻报道与事件。来自全球信源的综合报道与分析。",
         "intro": "浏览历史新闻档案，了解过去发生的重要事件。",
-        "backToArchives": "返回新闻档案"
+        "backToArchives": "返回新闻档案",
+        "pageTitle": "新闻档案",
+        "dateHeadline": "%date%新闻回顾"
     },
     "toc": {
         "title": "目录"
@@ -40,5 +42,13 @@
         "subtitle": "以下是用户最常问到的一些问题",
         "contactText": "没有找到你想要的答案？",
         "contactLink": "联系我们的支持团队"
+    },
+    "news": {
+        "todayHeadlines": "今日要闻"
+    },
+    "weekly": {
+        "pageTitle": "每周新闻汇总",
+        "weekNumber": "%year%年第%week%周要闻回顾",
+        "description": "%year%年第%week%周全球重要新闻精选。本周焦点：%headlines%等。"
     }
 }

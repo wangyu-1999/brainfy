@@ -127,4 +127,57 @@ export function formatUrlDate(dateStr: string) {
     }
     
     return dateStr;
+}
+
+export function formatNewsDate(dateString: string, lang: 'zh' | 'en' = 'en') {
+    let date: Date;
+    
+    // 处理两种可能的日期格式
+    if (dateString.includes('_')) {
+        const match = dateString.match(/(\d{4})[_-](\d{2})[_-](\d{2})[_-](\d{2})/);
+        if (match) {
+            const [_, year, month, day, hour] = match;
+            date = new Date(Date.UTC(
+                parseInt(year),
+                parseInt(month) - 1,
+                parseInt(day),
+                parseInt(hour)
+            ));
+        } else {
+            date = new Date(dateString);
+        }
+    } else {
+        date = new Date(dateString);
+    }
+
+    try {
+        if (lang === 'zh') {
+            const hour = date.getUTCHours();
+            const timeOfDay = hour >= 0 && hour < 6 ? '凌晨' :
+                            hour >= 6 && hour < 12 ? '上午' :
+                            hour >= 12 && hour < 18 ? '下午' : '晚上';
+            
+            const displayHour = hour % 12 || 12;
+            
+            return date.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+                timeZone: 'UTC'
+            }).replace(/\//g, '年').replace(' ', '日 ') + 
+            `${timeOfDay}${displayHour}点`;
+        } else {
+            return date.toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                hour12: true,
+                timeZone: 'UTC'
+            });
+        }
+    } catch (error) {
+        console.error('Error formatting date:', error);
+        return dateString;
+    }
 } 

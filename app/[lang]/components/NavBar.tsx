@@ -19,7 +19,7 @@ export function NavBar({ lang, dict }: NavBarProps) {
         <nav className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
             <div className="max-w-4xl mx-auto px-4">
                 <div className="h-14 flex items-center justify-between">
-                    <h1 className="flex items-center gap-4">
+                    <div className="flex items-center gap-4">
                         <Link href={`/${lang}/news`} className="text-xl font-bold text-[#bb1919] font-serif">
                             {dict.title}
                         </Link>
@@ -36,7 +36,7 @@ export function NavBar({ lang, dict }: NavBarProps) {
                                 </Link>
                             </>
                         )}
-                    </h1>
+                    </div>
                     <LanguageSwitcher currentLang={lang} />
                 </div>
             </div>

@@ -95,4 +95,59 @@ export async function getEnrichedCluster(name: string): Promise<ClusterEntity | 
         console.error(`Failed to fetch enriched cluster ${name}:`, error)
         return null
     }
-} 
+}
+
+/**
+ * 获取 weekly_news 目录的文件列表
+ * 排除 .processed_files.json
+ */
+export async function getWeeklyNewsFiles(): Promise<string[]> {
+    try {
+        const response = await octokit.repos.getContent({
+            owner: OWNER,
+            repo: REPO,
+            path: 'data/weekly_news',
+        })
+
+        // 确保响应是目录列表
+        if (!Array.isArray(response.data)) {
+            throw new Error('Invalid response format')
+        }
+
+        // 过滤出 .json 文件，并排除 .processed_files.json
+        return response.data
+            .filter(file => 
+                'name' in file && 
+                file.name.endsWith('.json') && 
+                file.name !== '.processed_files.json'
+            )
+            .map(file => ('name' in file ? file.name.replace('.json', '') : ''))
+            .filter(Boolean)
+    } catch (error) {
+        console.error('Failed to fetch weekly news files:', error)
+        return []
+    }
+}
+
+/**
+ * 获取特定的周新闻文件内容
+ */
+export async function getWeeklyNews(name: string) {
+    try {
+        const response = await octokit.repos.getContent({
+            owner: OWNER,
+            repo: REPO,
+            path: `data/weekly_news/${name}.json`
+        });
+
+        if (!('content' in response.data)) {
+            throw new Error('Invalid response format');
+        }
+
+        const content = Buffer.from(response.data.content, 'base64').toString();
+        return JSON.parse(content);
+    } catch (error) {
+        console.error(`Failed to fetch weekly news ${name}:`, error);
+        return null;
+    }
+}
