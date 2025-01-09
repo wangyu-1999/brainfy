@@ -31,7 +31,7 @@ export async function ExternalLinkRedirect({ lang }: { lang: Language }) {
                 </p>
 
                 {/* 客户端组件处理 URL 相关内容 */}
-                <ClientUrlContent dict={dict} />
+                <ClientUrlContent dict={dict} lang={lang} />
             </div>
         </div>
     )

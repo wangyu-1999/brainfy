@@ -35,7 +35,8 @@
         "warning": "You are about to leave Brainfy. Please verify the destination URL below to ensure it's trustworthy.",
         "destination": "Destination URL:",
         "continue": "Continue",
-        "goBack": "Go Back"
+        "goBack": "Go Back",
+        "backToHome": "Back to Home"
     },
     "faq": {
         "title": "Frequently Asked Questions",

@@ -11,9 +11,10 @@ export function LanguageSwitcher({ currentLang }: { currentLang: Language }) {
     const handleLanguageSwitch = () => {
         // 替换路径中的语言部分
         const targetPath = pathname.replace(`/${currentLang}`, `/${targetLang}`)
-        // 保留当前的 hash
+        // 保留当前的 search 参数和 hash
+        const search = window.location.search
         const hash = window.location.hash
-        router.push(`${targetPath}${hash}`)
+        router.push(`${targetPath}${search}${hash}`)
     }
 
     return (
