@@ -2,6 +2,7 @@ import { REVALIDATE_TIME_HOURS } from '@/lib/constants'
 import { NextResponse } from 'next/server'
 import { getAllNewsWithoutContent } from '@/app/[lang]/utils/getLatestNews'
 import { formatUrlDate } from '@/app/[lang]/utils/formatDate'
+import { getWeeklyNewsFiles } from "@/lib/githubService"
 
 export async function generateUrlsetXML() {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -9,6 +10,33 @@ export async function generateUrlsetXML() {
 
     // 获取所有历史新闻数据
     const allNews = await getAllNewsWithoutContent()
+    
+    // 获取所有周报文件
+    const weeklyFiles = await getWeeklyNewsFiles()
+    
+    // 生成周报页面的 URL
+    const weeklyUrls = weeklyFiles.map(filename => {
+        // 文件名格式为 "YYYY-WW", URL 中的周数需要 +1
+        const [year, week] = filename.split('-')
+        const displayWeek = String(Number(week) + 1).padStart(2, '0')
+        const urlPath = `${year}-${displayWeek}`
+        
+        return `
+    <url>
+        <loc>${baseUrl}/en/news/weekly/${urlPath}</loc>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/weekly/${urlPath}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/weekly/${urlPath}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/weekly/${urlPath}"/>
+    </url>
+    <url>
+        <loc>${baseUrl}/zh/news/weekly/${urlPath}</loc>
+        <priority>0.8</priority>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/weekly/${urlPath}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/weekly/${urlPath}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/weekly/${urlPath}"/>
+    </url>`
+    }).join('\n')
 
     // 生成历史页面的 URL
     const historyUrls = allNews.map(group => {
@@ -69,20 +97,8 @@ export async function generateUrlsetXML() {
         <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/history"/>
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history"/>
     </url>
-    <url>
-        <loc>${baseUrl}/en/news/redirect</loc>
-        <priority>0.1</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/redirect"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/redirect"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/redirect"/>
-    </url>
-    <url>
-        <loc>${baseUrl}/zh/news/redirect</loc>
-        <priority>0.1</priority>
-        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/redirect"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/news/redirect"/>
-        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/redirect"/>
-    </url>${historyUrls}
+    ${weeklyUrls}
+    ${historyUrls}
 </urlset>`
 }
 
