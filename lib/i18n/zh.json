@@ -49,6 +49,13 @@
     "weekly": {
         "pageTitle": "每周新闻汇总",
         "weekNumber": "%year%年第%week%周要闻回顾",
-        "description": "%year%年第%week%周全球重要新闻精选。本周焦点：%headlines%等。"
+        "description": "%year%年第%week%周全球重要新闻精选。本周焦点：%headlines%等。",
+        "dailyNews": "每日新闻详情",
+        "dailyNewsHint": "点击查看每日详细新闻",
+        "dailyNewsTitle": "每日新闻详情",
+        "dailyNewsDescription": "以下是本周每日新闻的详细报道，点击查看具体内容：",
+        "weeklyNewsHint": "查看本周完整新闻汇总",
+        "weeklyNewsTitle": "本周新闻汇总",
+        "weeklyNewsDescription": "想了解更多？查看本周的完整新闻汇总报道："
     }
 }

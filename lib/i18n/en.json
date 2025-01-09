@@ -49,6 +49,13 @@
     "weekly": {
         "pageTitle": "Weekly News Summary",
         "weekNumber": "Week %week%, %year% News Review",
-        "description": "Week %week% of %year% global news highlights. Top stories: %headlines%, and more."
+        "description": "Week %week% of %year% global news highlights. Top stories: %headlines%, and more.",
+        "dailyNews": "Daily News Details",
+        "dailyNewsHint": "Click to view daily news details",
+        "dailyNewsTitle": "Daily News Details",
+        "dailyNewsDescription": "Here are the detailed daily news reports for this week. Click to view specific content:",
+        "weeklyNewsHint": "View complete weekly news summary",
+        "weeklyNewsTitle": "Weekly News Summary",
+        "weeklyNewsDescription": "Want to know more? Check out the complete news summary for this week:"
     }
 }
