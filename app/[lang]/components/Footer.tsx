@@ -8,6 +8,7 @@ export default function Footer() {
                         <a 
                             href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`} 
                             title="Email" 
+                            rel="nofollow"
                             className="flex items-center justify-center text-white transition-all duration-200 bg-neutral-800 rounded-full w-7 h-7 hover:bg-[#bb1919] focus:bg-[#bb1919]"
                         >
                             <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -19,7 +20,7 @@ export default function Footer() {
                         <a 
                             href={process.env.NEXT_PUBLIC_GITHUB_URL} 
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noopener noreferrer nofollow"
                             title="GitHub" 
                             className="flex items-center justify-center text-white transition-all duration-200 bg-neutral-800 rounded-full w-7 h-7 hover:bg-[#bb1919] focus:bg-[#bb1919]"
                         >
