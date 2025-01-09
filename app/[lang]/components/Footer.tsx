@@ -10,8 +10,7 @@ export default function Footer() {
                     <li>
                         <a 
                             href={`mailto:${CONTACT_EMAIL}`} 
-                            title="Email" 
-                            rel="nofollow"
+                            title="Email"
                             className="flex items-center justify-center text-white transition-all duration-200 bg-neutral-800 rounded-full w-7 h-7 hover:bg-[#bb1919] focus:bg-[#bb1919]"
                         >
                             <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">

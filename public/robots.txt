@@ -18,6 +18,13 @@ Disallow: /*/redirect*
 Disallow: /*/news/redirect*
 Disallow: /*redirect*?url=*
 
+Disallow: /cdn-cgi/
+Disallow: /.well-known/
+Disallow: /*?__cf_chl_
+Disallow: /*?__cf_chl_rt_tk
+Disallow: /*?__cf_chl_captcha_tk
+Disallow: /*?__cf_chl_managed_tk
+
 Crawl-delay: 60
 
 Sitemap: https://www.brainfy.top/sitemap.xml
