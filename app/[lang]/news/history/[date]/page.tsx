@@ -1,7 +1,7 @@
 import { getDictionary } from '@/lib/i18n/dictionaries'
 import { Language } from '@/lib/constants'
 import { getAllNewsWithoutContent, getNewsByDate } from '../../../utils/getLatestNews'
-import { getWeeklyNews } from "@/lib/githubService"
+import { findWeekNumber, getWeeklyNews } from "@/lib/githubService"
 import { ArticleMain } from '../../../components/ArticleMain'
 import { RelatedArticles } from '../../../components/RelatedArticles'
 import Link from 'next/link'
@@ -45,17 +45,8 @@ export async function generateMetadata({ params }: PageProps) {
     const currentDate = new Date(originalDate.split('_')[0]);
     const year = currentDate.getFullYear();
     
-    // 获取周数
-    let weekNumber;
-    for (let i = 1; i <= 53; i++) {
-        const weekData = await getWeeklyNews(`${year}-${String(i).padStart(2, '0')}`);
-        if (weekData && 
-            new Date(weekData.date_range.earliest) <= currentDate && 
-            new Date(weekData.date_range.latest) >= currentDate) {
-            weekNumber = i + 1; // URL中的周数需要+1
-            break;
-        }
-    }
+    // 使用 findWeekNumber 替代遍历
+    const weekNumber = await findWeekNumber(currentDate);
 
     // 获取新闻数据
     const allNews = await getAllNewsWithoutContent();
@@ -90,7 +81,6 @@ export async function generateMetadata({ params }: PageProps) {
         ? `/${lang}/news/weekly/${year}-${String(weekNumber).padStart(2, '0')}`
         : `/${lang}/news/history/${date}`;
     
-    console.log("canonicalUrl", canonicalPath)
 
     return {
         title: pageTitle,
@@ -125,18 +115,7 @@ export default async function HistoryDetailPage({ params }: PageProps) {
     // 获取当前日期所属的周数
     const currentDate = new Date(originalDate.split('_')[0]);
     const year = currentDate.getFullYear();
-    
-    // 遍历查找包含当前日期的周
-    let weekNumber;
-    for (let i = 1; i <= 53; i++) {
-        const weekData = await getWeeklyNews(`${year}-${String(i).padStart(2, '0')}`);
-        if (weekData && 
-            new Date(weekData.date_range.earliest) <= currentDate && 
-            new Date(weekData.date_range.latest) >= currentDate) {
-            weekNumber = i + 1; // URL中的周数需要+1
-            break;
-        }
-    }
+    const weekNumber = await findWeekNumber(currentDate);
 
     const weekLink = weekNumber ? 
         `/${lang}/news/weekly/${year}-${String(weekNumber).padStart(2, '0')}` : 

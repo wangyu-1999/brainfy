@@ -151,3 +151,24 @@ export async function getWeeklyNews(name: string) {
         return null;
     }
 }
+
+export async function findWeekNumber(date: Date) {
+    try {
+        const weeklyFiles = await getWeeklyNewsFiles();
+        
+        for (const filename of weeklyFiles) {
+            const weekData = await getWeeklyNews(filename);
+            if (weekData && 
+                new Date(weekData.date_range.earliest) <= date && 
+                new Date(weekData.date_range.latest) >= date) {
+                // 从文件名中提取周数并+1（因为URL中的周数需要+1）
+                const weekNumber = Number(filename.split('-')[1]) + 1;
+                return weekNumber;
+            }
+        }
+        return null;
+    } catch (error) {
+        console.error('Error finding week number:', error);
+        return null;
+    }
+}
