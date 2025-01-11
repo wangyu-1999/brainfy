@@ -86,6 +86,10 @@ export default async function Layout({
   return (
     <html lang={lang} className={`${notoSans.className} ${notoSerif.className}`}>
       <head>
+        {/* 搜索引擎验证 */}
+        <meta name="360-site-verification" content="71474aeb883750c1f92c57adcae60f3e" />
+        <meta name="sogou_site_verification" content="tME2MjxPJL" />
+        <meta name="bytedance-verification-code" content="nMX3EOkGRdOPlidKaJrg" />
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XXJ2BZJED6"
