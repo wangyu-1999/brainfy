@@ -7,6 +7,7 @@ import { FloatingToc, TocItem } from '../components/FloatingToc'
 import { slugify } from '../utils/slugify'
 import { getNewsRelatedFaqs } from '../utils/newsRelatedFaqs'
 import { Faq } from '../components/Faq'
+import { Metadata } from 'next'
 
 type PageParams = Promise<{ lang: Language }>
 
@@ -17,6 +18,18 @@ export function generateStaticParams() {
         { lang: 'zh' },
         { lang: 'en' }
     ]
+}
+
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
+  const { lang } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  
+  return {
+    metadataBase: new URL(baseUrl),
+    alternates: {
+      canonical: `/${lang}/news`,
+    }
+  }
 }
 
 export default async function Page({

@@ -18,7 +18,9 @@ export function middleware(request: NextRequest) {
     if (pathname === '/' || pathname === '/en' || pathname === '/zh') {
         // 如果是仅语言路径，使用当前路径的语言而不是 preferredLang
         const lang = pathname === '/' ? preferredLang : pathname.slice(1)
-        return NextResponse.redirect(new URL(`/${lang}/news`, request.url))
+        return NextResponse.redirect(new URL(`/${lang}/news`, request.url), {
+            status: 301
+        })
     }
 
     // 如果路径已经包含语言前缀，直接放行
