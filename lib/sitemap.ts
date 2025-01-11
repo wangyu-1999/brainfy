@@ -41,7 +41,6 @@ export async function generateUrlsetXML() {
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>${baseUrl}/en/news</loc>
-        <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
         <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news"/>
@@ -50,7 +49,6 @@ export async function generateUrlsetXML() {
     </url>
     <url>
         <loc>${baseUrl}/zh/news</loc>
-        <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>1.0</priority>
         <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news"/>
@@ -59,7 +57,6 @@ export async function generateUrlsetXML() {
     </url>
     <url>
         <loc>${baseUrl}/en/news/history</loc>
-        <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.7</priority>
         <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history"/>
@@ -68,7 +65,6 @@ export async function generateUrlsetXML() {
     </url>
     <url>
         <loc>${baseUrl}/zh/news/history</loc>
-        <changefreq>every${REVALIDATE_TIME_HOURS}hours</changefreq>
         <priority>0.7</priority>
         <lastmod>${currentDate}</lastmod>
         <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/news/history"/>
