@@ -11,8 +11,6 @@ import { Metadata } from 'next'
 
 type PageParams = Promise<{ lang: Language }>
 
-export const revalidate = 43200
-
 export function generateStaticParams() {
     return [
         { lang: 'zh' },

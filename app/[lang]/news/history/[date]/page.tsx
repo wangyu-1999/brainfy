@@ -34,8 +34,6 @@ export async function generateStaticParams() {
     ]);
 }
 
-export const revalidate = 43200
-
 export async function generateMetadata({ params }: PageProps) {
     const { lang, date } = await params;
     const dict = await getDictionary(lang);

@@ -11,8 +11,6 @@ type PageProps = {
     params: Promise<{ lang: Language; week: string }>;
 }
 
-export const revalidate = 43200;
-
 export async function generateMetadata({ params }: PageProps) {
     const { lang, week } = await params;
     const dict = await getDictionary(lang);

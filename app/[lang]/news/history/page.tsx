@@ -5,10 +5,7 @@ import Link from 'next/link'
 import { getClusterCounts, getEnrichedClustersIndex, getWeeklyNewsFiles, getWeeklyNews } from "@/lib/githubService";
 import { FloatingToc, TocItem } from '../../components/FloatingToc';
 
-
 type PageParams = Promise<{ lang: Language }>;
-
-export const revalidate = 43200;
 
 export async function generateMetadata({
   params,

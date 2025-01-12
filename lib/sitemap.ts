@@ -1,4 +1,3 @@
-import { REVALIDATE_TIME_HOURS } from '@/lib/constants'
 import { NextResponse } from 'next/server'
 import { getWeeklyNews, getWeeklyNewsFiles } from "@/lib/githubService"
 
@@ -92,7 +91,6 @@ export function handleSitemapRequest(isSitemapIndex: boolean) {
         return new NextResponse(xml, {
             headers: {
                 'Content-Type': 'application/xml',
-                'Cache-Control': `public, max-age=${REVALIDATE_TIME_HOURS * 3600}, s-maxage=${REVALIDATE_TIME_HOURS * 3600}`,
                 'X-Robots-Tag': 'noindex, follow'
             }
         })
