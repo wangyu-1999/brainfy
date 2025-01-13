@@ -1,0 +1,41 @@
+backend:
+    name: github
+    repo: wangyu-1999/brainfy-blog
+    branch: main
+    base_url: https://brainfy-blog.vercel.app/
+    auth_endpoint: api/begin
+publish_mode: editorial_workflow
+media_folder: "content/images/uploads"
+collections:
+    - name: "pages"
+      label: "Pages"
+      folder: "content/posts"
+      create: true
+      fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        pattern: ['^[a-zA-Z0-9-_]+$', "只允许字母、数字、连字符和下划线"]
+      - label: "Language"
+        name: "language"
+        widget: "select"
+        options: 
+          - "en"
+          - "zh"
+        required: true
+      - label: "Publish Date"
+        name: "date"
+        widget: "datetime"
+      - label: "Featured Image"
+        name: "thumbnail"
+        widget: "image"
+        required: false
+      - label: "Description"
+        name: "description"
+        widget: "text"
+      - label: "Body"
+        name: "body"
+        widget: "markdown"

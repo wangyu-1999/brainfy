@@ -5,6 +5,12 @@ import { SUPPORTED_LANGUAGES } from './lib/constants'
 export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
 
+    // 跳过 API 和管理页面的路由
+    if (pathname.startsWith('/api') ||
+        pathname.startsWith('/admin')) {
+        return NextResponse.next()
+    }
+
     // 获取用户的语言偏好
     const acceptLanguage = request.headers.get('accept-language') || ''
     let preferredLang = 'en' // 默认英语
@@ -24,7 +30,7 @@ export function middleware(request: NextRequest) {
     }
 
     // 如果路径已经包含语言前缀，直接放行
-    if (SUPPORTED_LANGUAGES.some(locale => 
+    if (SUPPORTED_LANGUAGES.some(locale =>
         pathname.startsWith(`/${locale}/`) || // 注意这里添加了斜杠
         pathname.startsWith(`/${locale}/news/`)
     )) {
