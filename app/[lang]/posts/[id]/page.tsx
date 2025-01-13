@@ -13,7 +13,7 @@ export async function generateMetadata(
   const post = await getPostData(id)
   
   return {
-    title: `${post.title} | Brainfy`,
+    title: `${post.title}`,
     description: post.description,
     openGraph: {
       title: `${post.title} | Brainfy`,
