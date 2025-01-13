@@ -39,18 +39,14 @@ export async function generateUrlsetXML() {
     // 获取所有文章
     const posts = await getAllPosts()
 
-    const postUrls = posts.flatMap((post: { id: string }) => [
-        `
+    const postUrls = posts.flatMap((post: { id: string, language: string }) => {
+        // 根据文章的语言生成对应的 URL
+        return `
     <url>
         <priority>0.8</priority>
-        <loc>${baseUrl}/en/posts/${post.id}</loc>
-    </url>`,
-        `
-    <url>
-        <priority>0.8</priority>
-        <loc>${baseUrl}/zh/posts/${post.id}</loc>
+        <loc>${baseUrl}/${post.language}/posts/${post.id}</loc>
     </url>`
-    ])
+    })
 
     const postIndexUrls = `
     <url>
