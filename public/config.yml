@@ -1,8 +1,8 @@
 backend:
     name: github
-    repo: wangyu-1999/brainfy-blog
+    repo: wangyu-1999/brainfy
     branch: main
-    base_url: https://brainfy-blog.vercel.app/
+    base_url: https://www.brainfy.top/
     auth_endpoint: api/begin
 publish_mode: editorial_workflow
 media_folder: "content/images/uploads"
@@ -18,7 +18,7 @@ collections:
       - label: "Slug"
         name: "slug"
         widget: "string"
-        pattern: ['^[a-zA-Z0-9-_]+$', "只允许字母、数字、连字符和下划线"]
+        pattern: ['^[a-zA-Z0-9-_]+$', "Only letters, numbers, hyphens and underscores allowed"]
       - label: "Language"
         name: "language"
         widget: "select"

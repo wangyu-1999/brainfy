@@ -58,5 +58,9 @@
         "weeklyNewsHint": "View complete weekly news summary",
         "weeklyNewsTitle": "Weekly News Summary",
         "weeklyNewsDescription": "Want to know more? Check out the complete news summary for this week:"
+    },
+    "commentary": {
+        "title": "Commentary",
+        "description": "In-depth analysis and perspectives on major news events"
     }
 }

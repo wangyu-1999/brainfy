@@ -58,5 +58,9 @@
         "weeklyNewsHint": "查看本周完整新闻汇总",
         "weeklyNewsTitle": "本周新闻汇总",
         "weeklyNewsDescription": "想了解更多？查看本周的完整新闻汇总报道："
+    },
+    "commentary": {
+        "title": "深度观察",
+        "description": "重大新闻事件的深度分析与观点"
     }
 }

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getWeeklyNews, getWeeklyNewsFiles } from "@/lib/githubService"
+import { getAllPosts } from './posts'
 
 export async function generateUrlsetXML() {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -7,12 +8,12 @@ export async function generateUrlsetXML() {
 
     // 获取所有周报文件
     const weeklyFiles = await getWeeklyNewsFiles()
-    
+
     const weeklyUrls = await Promise.all(weeklyFiles.map(async filename => {
         const [year, week] = filename.split('-')
         const displayWeek = String(Number(week) + 1).padStart(2, '0')
         const urlPath = `${year}-${displayWeek}`
-        
+
         // 获取该周的数据
         const weekData = await getWeeklyNews(filename)
         if (!weekData) return ''
@@ -34,6 +35,32 @@ export async function generateUrlsetXML() {
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/weekly/${urlPath}"/>
     </url>`
     }))
+
+    // 获取所有文章
+    const posts = await getAllPosts()
+
+    const postUrls = posts.flatMap((post: { id: string }) => [
+        `
+    <url>
+        <priority>0.8</priority>
+        <loc>${baseUrl}/en/posts/${post.id}</loc>
+    </url>`,
+        `
+    <url>
+        <priority>0.8</priority>
+        <loc>${baseUrl}/zh/posts/${post.id}</loc>
+    </url>`
+    ])
+
+    const postIndexUrls = `
+    <url>
+        <priority>1.0</priority>
+        <loc>${baseUrl}/en/posts</loc>
+    </url>
+    <url>
+        <priority>1.0</priority>
+        <loc>${baseUrl}/zh/posts</loc>
+    </url>`
 
     return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -71,6 +98,8 @@ export async function generateUrlsetXML() {
         <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/news/history"/>
     </url>
     ${weeklyUrls.join('\n')}
+    ${postIndexUrls}
+    ${postUrls.join('\n')}
 </urlset>`
 }
 

@@ -38,11 +38,11 @@ export default async function PostPage(props: {
 
   return (
     <main className="min-h-screen bg-neutral-50">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="max-w-3xl mx-auto pt-4 px-4 sm:px-6">
         <Link
           href={`/${lang}/posts`}
           className="inline-flex items-center text-neutral-600 hover:text-[#bb1919] 
-            transition-colors py-4 text-sm"
+            transition-colors text-sm mb-4"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@ export default async function PostPage(props: {
         </div>
         <div className="ml-3 mt-6">
           <Link
-            href={`https://www.brainfy.top/${lang}/news`}
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/${lang}/news`}
             className="text-[#bb1919] hover:underline font-medium transition-colors"
           >
             {lang === 'zh' ? '查看更多实时新闻' : 'Check out more real-time news'}
