@@ -26,8 +26,8 @@ export async function generateMetadata(
 export async function generateStaticParams() {
   const posts = getAllPosts()
   return posts.flatMap(post => [
-    { lang: 'en', id: encodeURIComponent(post.id) },
-    { lang: 'zh', id: encodeURIComponent(post.id) }
+    { lang: 'en', id: post.id },
+    { lang: 'zh', id: post.id }
   ])
 }
 
@@ -41,7 +41,7 @@ interface PostPageProps {
 // 主页面组件
 export default async function PostPage({ params }: PostPageProps) {
   const { id, lang } = await params
-  const post = await getPostData(decodeURIComponent(id))
+  const post = await getPostData(id)
 
   return (
     <main className="min-h-screen bg-neutral-50">
@@ -109,12 +109,6 @@ export default async function PostPage({ params }: PostPageProps) {
                 {new Date(post.date).toLocaleDateString()}
               </time>
             </div>
-
-            {/* 文章标题 */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl text-neutral-900 font-bold 
-              leading-tight tracking-tight">
-              {post.title}
-            </h1>
           </header>
 
           {/* 文章内容 - 优化排版和间距 */}
