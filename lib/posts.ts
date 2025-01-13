@@ -27,7 +27,8 @@ export function getAllPosts(): Post[] {
 }
 
 export async function getPostData(id: string): Promise<Post> {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
+  const decodedId = decodeURIComponent(id)
+  const fullPath = path.join(postsDirectory, `${decodedId}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
   

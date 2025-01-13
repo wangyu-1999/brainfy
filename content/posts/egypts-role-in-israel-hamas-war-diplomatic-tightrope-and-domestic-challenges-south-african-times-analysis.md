@@ -4,7 +4,6 @@ title: "Egypt's Role in Israel-Hamas War: Diplomatic Tightrope and Domestic
 slug: egypt-gaza-crisis-challenges
 language: en
 date: 2025-01-13T22:31:52.956Z
-thumbnail: https://images.pexels.com/photos/4493205/pexels-photo-4493205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
 description: This article provides an in-depth analysis of Egypt's multiple
   challenges in the Israel-Hamas war. As reported by the South African Times,
   Egypt, being the first Arab country to sign a peace treaty with Israel, plays
