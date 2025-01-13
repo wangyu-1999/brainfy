@@ -2,12 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { getAllPosts, getPostData } from '@/lib/posts'
+import { Language } from '@/lib/constants'
 
 // 生成元数据
-export async function generateMetadata(props: { 
-  params: { id: string; lang: string } 
-}): Promise<Metadata> {
-  const { id } = await Promise.resolve(props.params)
+export async function generateMetadata(
+  {params}:{params:Promise<{ id: string; lang: Language }>}
+): Promise<Metadata> {
+
+  const { id } = await params
   const post = await getPostData(id)
   
   return {
@@ -29,11 +31,16 @@ export async function generateStaticParams() {
   ])
 }
 
+interface PostPageProps {
+    params: Promise<{
+        id: string;
+        lang: string;
+    }>;
+}
+
 // 主页面组件
-export default async function PostPage(props: { 
-  params: { id: string; lang: string } 
-}) {
-  const { id, lang } = await Promise.resolve(props.params)
+export default async function PostPage({ params }: PostPageProps) {
+  const { id, lang } = await params
   const post = await getPostData(id)
 
   return (

@@ -2,16 +2,18 @@ import { Metadata } from 'next'
 import { PostCard } from '../components/PostCard'
 import { getAllPosts } from '@/lib/posts'
 
-export async function generateMetadata(props: { 
-  params: { lang: string } 
-}): Promise<Metadata> {
-  const { lang } = await Promise.resolve(props.params)
+interface HomeProps {
+  params: Promise<{ lang: string }>;
+}
+
+export async function generateMetadata({ params }: HomeProps): Promise<Metadata> {
+  const { lang } = await params
   const title = lang === 'zh' 
-    ? 'Brainfy 新闻 | 实时新闻资讯'
-    : 'Brainfy News | Real-time News Updates'
+    ? 'Brainfy 新闻评论 | 深度观点分析'
+    : 'Brainfy News Commentary | In-depth Analysis'
   const description = lang === 'zh'
-    ? '获取最新的科技、商业和全球新闻资讯。'
-    : 'Get the latest updates on technology, business, and global news.'
+    ? '深入解读热点新闻，提供独到的分析视角和专业评论。'
+    : 'In-depth analysis and professional commentary on current news and events.'
 
   return {
     title,
@@ -30,10 +32,8 @@ export async function generateStaticParams() {
   ]
 }
 
-export default async function Home(props: { 
-  params: { lang: string } 
-}) {
-  const { lang } = await Promise.resolve(props.params)
+export default async function Home({ params }: HomeProps) {
+  const { lang } = await params
   const posts = getAllPosts().filter(post => post.language === lang)
 
   return (
