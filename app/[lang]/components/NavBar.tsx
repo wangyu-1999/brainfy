@@ -73,6 +73,8 @@ export function NavBar({ lang, dict }: NavBarProps) {
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="p-1.5 rounded-md text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+                            aria-label="menu_button"
+                            role="button"
                         >
                             {isMenuOpen ? (
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
