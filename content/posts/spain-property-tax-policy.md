@@ -3,6 +3,7 @@ title: spain-property-tax-policy
 slug: spain-property-tax-policy
 language: en
 date: 2025-01-14T16:37:46.591Z
+thumbnail: /content/images/uploads/spain-property-tax-policy.jpg
 description: Recently, Spain announced a 100% tax on property purchases by
   non-EU residents, drawing international attention. This article provides an
   in-depth analysis of Spain's real estate market conditions, the causes of the
@@ -29,6 +30,7 @@ More importantly, Spanish property can generate substantial investment returns. 
 
 For non-EU citizens, investing in Spanish property comes with an additional benefit: **those who purchase property worth over €500,000 can apply for a "Golden Visa"**, granting legal rights to work and reside in Spain. This policy has further driven the growth in foreign property demand.
 
+![spanish-mediterranean-coast](/content/images/uploads/spanish-mediterranean-coast.jpg)
 
 ## Can foreigners still buy property in Spain?
 
@@ -41,17 +43,20 @@ This sustained growth in foreign property demand has brought unexpected negative
 For foreign buyers deciding to purchase property in Spain, understanding the specific buying process is crucial. The first essential step is applying for a Foreigner's Identity Number (NIE), which is required for any economic activity. Different types of NIE may be required depending on nationality and residency intentions.
 
 Subsequent steps include:
-- Opening a Spanish bank account
-- Finding suitable property
-- Conducting due diligence
-- Signing reservation contracts and deposit agreements
-- Applying for a mortgage (if needed)
-- Property valuation
-- Preparing necessary documentation
-- Signing the purchase contract
-- Completing property registration
+
+* Opening a Spanish bank account
+* Finding suitable property
+* Conducting due diligence
+* Signing reservation contracts and deposit agreements
+* Applying for a mortgage (if needed)
+* Property valuation
+* Preparing necessary documentation
+* Signing the purchase contract
+* Completing property registration
 
 The entire process can take 3 to 12 months, requiring buyers to have sufficient patience and preparation.
+
+![spanish-traditional-architecture](/content/images/uploads/spanish-traditional-architecture.jpg)
 
 ## What are the main challenges and risks?
 
@@ -60,16 +65,15 @@ The primary challenge foreign buyers face in Spain is the language barrier. Span
 Cultural differences also present challenges. Spain's property purchase process and legal requirements differ from other countries, requiring investors to take time to adapt and understand. For example, Spanish property transactions typically involve multiple deposit payments and have specific default liability provisions.
 
 The tax burden is another significant consideration. Property buyers must pay various fees including:
-- Property transfer tax or VAT (depending on property type)
-- Notary fees
-- Stamp duty
-- Land registry fees
-- Property valuation fees
-- Legal fees (if required)
+
+* Property transfer tax or VAT (depending on property type)
+* Notary fees
+* Stamp duty
+* Land registry fees
+* Property valuation fees
+* Legal fees (if required)
 
 These fees typically total 10-12% of the property value, significantly impacting the purchase budget. For foreign buyers requiring mortgages, the situation is more complex. **Foreign buyers typically need to pay higher down payments than local residents and may face higher interest rates and shorter loan terms**.
-
-
 
 ## Why is Spain implementing such strict measures?
 
@@ -78,6 +82,8 @@ Spain's housing crisis has intensified due to multiple factors. Beyond the impac
 The Spanish Constitution stipulates that all Spanish citizens have the right to "decent and adequate" housing. However, current market conditions sharply contradict this principle. Against this backdrop, Spain's left-wing coalition government chose to impose a 100% tax on property purchases by non-EU residents, attempting to alleviate the housing crisis through strong measures.
 
 As Sánchez stated: "In the context of housing shortages, we clearly cannot allow non-EU residents to purchase properties for speculation and profit." This policy can be seen as the left-wing government's "public welfare card" in addressing the housing crisis and gaining public support.
+
+![spanish-street-life](/content/images/uploads/spanish-street-life.jpg)
 
 ## What's the future outlook for Spain's property market?
 
@@ -91,4 +97,4 @@ For foreign investors interested in Spanish property, the immediate priority is 
 
 After all, Spain's unique geographical location, climate conditions, and lifestyle appeal remain unchanged by any policy. In the new policy environment, the key is to take a more rational approach to investment opportunities, preparing for long-term investment rather than hoping for short-term speculative gains.
 
-[Translation complete. Would you like me to review or adjust any particular section?]
+\[Translation complete. Would you like me to review or adjust any particular section?]
