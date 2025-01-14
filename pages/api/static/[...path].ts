@@ -2,11 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { join } from 'path'
 import { createReadStream } from 'fs'
 import { stat } from 'fs/promises'
-import mime from 'mime-types'  // 需要安装: npm install mime-types
+import mime from 'mime-types'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    // 获取请求的文件路径
+    // Get requested file path
     const { path } = req.query
     const filePath = join(process.cwd(), 'content', ...(path as string[]))
 

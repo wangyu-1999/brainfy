@@ -16,7 +16,7 @@ interface ClientUrlContentProps {
 
 export function ClientUrlContent({ dict, lang }: ClientUrlContentProps) {
     const searchParams = useSearchParams()
-    const url = searchParams.get('url')
+    const url = searchParams?.get('url')
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
 
     if (!url) {

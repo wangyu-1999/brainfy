@@ -14,6 +14,9 @@ dependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.16
     version: 0.5.16(tailwindcss@3.4.17)
+  '@types/mime-types':
+    specifier: ^2.1.4
+    version: 2.1.4
   '@types/node':
     specifier: 22.10.2
     version: 22.10.2
@@ -867,6 +870,10 @@ packages:
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==, tarball: https://registry.npmmirror.com/@types/mdast/-/mdast-4.0.4.tgz}
     dependencies:
       '@types/unist': 3.0.3
+    dev: false
+
+  /@types/mime-types@2.1.4:
+    resolution: {integrity: sha512-lfU4b34HOri+kAY5UheuFMWPDOI+OPceBSHZKp69gEyTL/mmJ4cnU6Y/rlme3UL3GyOn6Y42hyIEw0/q8sWx5w==, tarball: https://registry.npmmirror.com/@types/mime-types/-/mime-types-2.1.4.tgz}
     dev: false
 
   /@types/ms@0.7.34:

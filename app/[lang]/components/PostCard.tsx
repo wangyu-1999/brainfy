@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Post } from '@/types/post'
+import Image from 'next/image'
 
 interface PostCardProps {
   post: Post
@@ -11,10 +12,11 @@ export function PostCard({ post, lang }: PostCardProps) {
     <article className="bg-white shadow rounded-lg overflow-hidden hover:shadow-md transition-shadow">
       {post.thumbnail && (
         <div className="w-full h-48 relative mb-[-7rem] z-0">
-          <img
+          <Image
             src={post.thumbnail}
-            alt=""
-            className="w-full h-full object-cover"
+            alt={post.title}
+            fill
+            className="object-cover"
           />
           <div 
             className="absolute inset-0"

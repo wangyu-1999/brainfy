@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { getAllPosts, getPostData } from '@/lib/posts'
 import { Language } from '@/lib/constants'
+import Image from 'next/image'
 
 // 生成元数据
 export async function generateMetadata(
@@ -94,10 +95,12 @@ export default async function PostPage({ params }: PostPageProps) {
           {/* 特色图片 */}
           {post.thumbnail && (
             <div className="w-full h-64 sm:h-80 relative mb-[-15rem] z-0">
-              <img
+              <Image
                 src={post.thumbnail}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                priority
               />
               <div 
                 className="absolute inset-0"

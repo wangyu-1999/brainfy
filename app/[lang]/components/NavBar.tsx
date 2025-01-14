@@ -13,7 +13,7 @@ interface NavBarProps {
 
 export function NavBar({ lang, dict }: NavBarProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const pathname = usePathname()
+    const pathname = usePathname() ?? ''
     const isHistoryPage = pathname.includes('/history')
     const isPostsPage = pathname.includes('/posts')
     const showNavLinks = !pathname.includes('/redirect')
