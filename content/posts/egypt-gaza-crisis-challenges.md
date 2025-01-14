@@ -1,7 +1,6 @@
 ---
-title: "Egypt's Role in Israel-Hamas War: Diplomatic Tightrope and Domestic
-  Challenges | South African Times Analysis"
-slug: egypt-gaza-crisis-challenges
+title: egypt-gaza-crisis-challenges
+slug: "Egypt's Role in Israel-Hamas War: Diplomatic Tightrope and Domestic Challenges | South African Times Analysis"
 language: en
 date: 2025-01-13T22:31:52.956Z
 description: This article provides an in-depth analysis of Egypt's multiple

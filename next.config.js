@@ -6,6 +6,10 @@ const nextConfig = {
           source: '/admin',
           destination: '/admin/index.html',
         },
+        {
+          source: '/content/:path*',
+          destination: '/api/static/:path*'
+        }
       ];
     },
 }

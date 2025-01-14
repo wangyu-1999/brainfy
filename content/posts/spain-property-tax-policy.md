@@ -1,6 +1,6 @@
 ---
 title: spain-property-tax-policy
-slug: spain-property-tax-policy
+slug: "Spain's New Property Policy: From Foreign Investment Boom to 100% Tax"
 language: en
 date: 2025-01-14T16:37:46.591Z
 thumbnail: /content/images/uploads/spain-property-tax-policy.jpg
@@ -96,5 +96,3 @@ Looking ahead, Spain's housing market development still faces many uncertainties
 For foreign investors interested in Spanish property, the immediate priority is to closely monitor policy developments and carefully assess investment risks and opportunities. Despite facing new challenges, investment opportunities can still be found in the Spanish real estate market with adequate preparation, understanding of local laws and regulations, and professional legal and tax advice.
 
 After all, Spain's unique geographical location, climate conditions, and lifestyle appeal remain unchanged by any policy. In the new policy environment, the key is to take a more rational approach to investment opportunities, preparing for long-term investment rather than hoping for short-term speculative gains.
-
-\[Translation complete. Would you like me to review or adjust any particular section?]

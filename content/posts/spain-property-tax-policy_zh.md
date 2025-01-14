@@ -1,6 +1,6 @@
 ---
 title: spain-property-tax-policy_zh
-slug: spain-property-tax-policy
+slug: "西班牙房地产市场的变局：从外国投资热潮到100%重税政策"
 language: zh
 date: 2025-01-14T16:34:35.421Z
 thumbnail: /content/images/uploads/spain-property-tax-policy.jpg

@@ -20,6 +20,7 @@
     "eslint-config-next": "15.1.2",
     "gray-matter": "^4.0.3",
     "install": "^0.13.0",
+    "mime-types": "^2.1.35",
     "netlify-cms-oauth-provider-node": "latest",
     "next": "15.1.2",
     "postcss": "8.4.49",

@@ -9,10 +9,25 @@ interface PostCardProps {
 export function PostCard({ post, lang }: PostCardProps) {
   return (
     <article className="bg-white shadow rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-      <div className="p-6">
+      {post.thumbnail && (
+        <div className="w-full h-48 relative mb-[-7rem] z-0">
+          <img
+            src={post.thumbnail}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.7) 70%, white 100%)'
+            }}
+          />
+        </div>
+      )}
+      <div className="p-6 relative z-10">
         <Link href={`/${lang}/posts/${post.id}`} className="block">
           <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight font-serif tracking-tight mb-3">
-            {post.title}
+            {post.slug}
           </h2>
           <p className="text-lg text-neutral-700 leading-relaxed font-sans">
             {post.description}
