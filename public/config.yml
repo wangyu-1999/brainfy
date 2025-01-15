@@ -18,7 +18,6 @@ collections:
       - label: "Slug"
         name: "slug"
         widget: "string"
-        pattern: ['^[a-zA-Z0-9-_]+$', "Only letters, numbers, hyphens and underscores allowed"]
       - label: "Language"
         name: "language"
         widget: "select"
