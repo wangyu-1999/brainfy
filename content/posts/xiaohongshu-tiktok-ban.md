@@ -1,5 +1,5 @@
 ---
-title: xiaohongshu-tiktok-ban_zh
+title: xiaohongshu-tiktok-ban_z
 slug: 小红书：TikTok封禁潮下的机遇与挑战
 language: zh
 date: 2025-01-15T12:25:39.150Z
