@@ -149,7 +149,13 @@ export default async function PostPage({ params }: PostPageProps) {
             />
           </div>
         </div>
-        <div className="ml-3 mt-6">
+        <div className="ml-3 mt-6 flex flex-col gap-3">
+        <Link
+            href={`${process.env.NEXT_PUBLIC_BASE_URL}/${lang}/posts`}
+            className="text-[#bb1919] hover:underline font-medium transition-colors"
+          >
+            {lang === 'zh' ? '返回深度观察' : 'Back to Commentaries'}
+          </Link>
           <Link
             href={`${process.env.NEXT_PUBLIC_BASE_URL}/${lang}/news`}
             className="text-[#bb1919] hover:underline font-medium transition-colors"
