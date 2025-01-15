@@ -76,7 +76,7 @@ export async function generateMetadata({ params }: PageProps) {
     const pageTitle = `${formattedDate} - ${dict.history.title}`;
 
     const canonicalPath = weekNumber 
-        ? `/${lang}/news/weekly/${year}-${String(weekNumber).padStart(2, '0')}`
+        ? `/${lang}/news/weekly/${year}-${String(weekNumber)}`
         : `/${lang}/news/history/${date}`;
     
 
@@ -116,7 +116,7 @@ export default async function HistoryDetailPage({ params }: PageProps) {
     const weekNumber = await findWeekNumber(currentDate);
 
     const weekLink = weekNumber ? 
-        `/${lang}/news/weekly/${year}-${String(weekNumber).padStart(2, '0')}` : 
+        `/${lang}/news/weekly/${year}-${String(weekNumber)}` : 
         null;
 
     const tocItems: TocItem[] = newsGroup.clusters

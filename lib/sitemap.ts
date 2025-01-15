@@ -11,7 +11,7 @@ export async function generateUrlsetXML() {
 
     const weeklyUrls = await Promise.all(weeklyFiles.map(async filename => {
         const [year, week] = filename.split('-')
-        const displayWeek = String(Number(week) + 1).padStart(2, '0')
+        const displayWeek = String(Number(week) + 1)
         const urlPath = `${year}-${displayWeek}`
 
         // 获取该周的数据
