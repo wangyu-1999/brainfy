@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps) {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     
     // 获取实际的周数（因为URL中的周数需要-1）
-    const actualWeek = `${year}-${String(Number(weekNumber) - 1)}`;
+    const actualWeek = `${year}-${String(Number(weekNumber) - 1).padStart(2, '0')}`;
     const weeklyNews = await getWeeklyNews(actualWeek);
     
     // 获取前三条新闻标题并限制在100字符以内
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function WeeklyNewsPage({ params }: PageProps) {
     const { lang, week } = await params;
     const dict = await getDictionary(lang);
-    const actualWeek = `${week.split('-')[0]}-${String(Number(week.split('-')[1]) - 1)}`;
+    const actualWeek = `${week.split('-')[0]}-${String(Number(week.split('-')[1]) - 1).padStart(2, '0')}`;
     const weeklyNews = await getWeeklyNews(actualWeek);
     const weekNumber = Number(week.split('-')[1]);
 
