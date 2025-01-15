@@ -40,11 +40,15 @@ export async function generateUrlsetXML() {
     const posts = await getAllPosts()
 
     const postUrls = posts.flatMap((post: { id: string, language: string }) => {
-        // 根据文章的语言生成对应的 URL
+        // 移除中文文章 ID 中的 _zh 后缀
+        const postId = post.language === 'zh' ? post.id.replace('_zh', '') : post.id
         return `
     <url>
         <priority>0.8</priority>
-        <loc>${baseUrl}/${post.language}/posts/${post.id}</loc>
+        <loc>${baseUrl}/${post.language}/posts/${postId}</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/posts/${postId}"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/posts/${postId}"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/posts/${postId}"/>
     </url>`
     })
 
@@ -52,10 +56,16 @@ export async function generateUrlsetXML() {
     <url>
         <priority>1.0</priority>
         <loc>${baseUrl}/en/posts</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/posts"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/posts"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/posts"/>
     </url>
     <url>
         <priority>1.0</priority>
         <loc>${baseUrl}/zh/posts</loc>
+        <xhtml:link rel="alternate" hreflang="en" href="${baseUrl}/en/posts"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="${baseUrl}/zh/posts"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/en/posts"/>
     </url>`
 
     return `<?xml version="1.0" encoding="UTF-8"?>

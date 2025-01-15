@@ -27,7 +27,7 @@ export function PostCard({ post, lang }: PostCardProps) {
         </div>
       )}
       <div className="p-6 relative z-10">
-        <Link href={`/${lang}/posts/${post.id}`} className="block">
+        <Link href={`/${lang}/posts/${post.id.replace(/_zh$/, '')}`} className="block">
           <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight font-serif tracking-tight mb-3">
             {post.slug}
           </h2>

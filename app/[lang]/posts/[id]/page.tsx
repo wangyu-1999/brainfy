@@ -9,14 +9,15 @@ export async function generateMetadata(
   {params}:{params:Promise<{ id: string; lang: Language }>}
 ): Promise<Metadata> {
 
-  const { id } = await params
-  const post = await getPostData(id)
+  const { id, lang } = await params
+  const postId = lang === 'zh' ? `${id}_zh` : id
+  const post = await getPostData(postId)
   
   return {
-    title: `${post.title}`,
+    title: `${post.slug}`,
     description: post.description,
     openGraph: {
-      title: `${post.title} | Brainfy`,
+      title: `${post.slug} | Brainfy`,
       description: post.description,
     },
   }
@@ -25,10 +26,10 @@ export async function generateMetadata(
 // 生成静态路径
 export async function generateStaticParams() {
   const posts = getAllPosts()
-  return posts.flatMap(post => [
-    { lang: 'en', id: post.id },
-    { lang: 'zh', id: post.id }
-  ])
+  return posts.map(post => ({
+    lang: post.language,
+    id: post.language === 'zh' ? post.id.replace('_zh', '') : post.id
+  }))
 }
 
 interface PostPageProps {
@@ -41,7 +42,8 @@ interface PostPageProps {
 // 主页面组件
 export default async function PostPage({ params }: PostPageProps) {
   const { id, lang } = await params
-  const post = await getPostData(id)
+  const postId = lang === 'zh' ? `${id}_zh` : id
+  const post = await getPostData(postId)
 
   return (
     <main className="min-h-screen bg-neutral-50">
