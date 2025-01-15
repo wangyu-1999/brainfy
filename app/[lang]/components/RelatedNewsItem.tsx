@@ -55,7 +55,7 @@ export async function RelatedNewsItem({ article, lang, useRelativeTime = true }:
                         <a
                             href={`/${lang}/news/redirect?url=${encodeURIComponent(article.url)}`}
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noopener noreferrer noindex nofollow"
                             className="inline-flex items-center font-medium text-neutral-500 hover:text-[#bb1919] transition-colors duration-200 group/link"
                         >
                             <span>{article.content.source_name}</span>

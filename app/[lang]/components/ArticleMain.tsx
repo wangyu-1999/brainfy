@@ -27,7 +27,7 @@ export function ArticleMain({ content, url, lang, useRelativeTime = true }: {
                 <div className="flex items-center gap-3">
                     <a href={`/${lang}/news/redirect?url=${encodeURIComponent(url)}`}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer noindex nofollow"
                         className="group inline-flex items-center font-medium hover:text-[#bb1919] transition-colors"
                     >
                         <span>{content.source_name}</span>
