@@ -18,7 +18,7 @@ description: Recently, Spain announced a 100% tax on property purchases by
 
 ## Why is Spain's property market attracting so much attention?
 
-Recently, Spanish Prime Minister Pedro Sánchez announced a controversial housing policy: plans to impose a 100% tax on property purchases by non-EU residents. This policy has sparked widespread international attention, leading us to ask: what makes Spain's real estate market so noteworthy?
+Recently, Spanish Prime Minister Pedro Sánchez announced a controversial housing policy: [plans to impose a 100% tax on property purchases by non-EU residents](https://www.brainfy.top/en/news/weekly/2025-3#article-50). This policy has sparked widespread international attention, leading us to ask: what makes Spain's real estate market so noteworthy?
 
 To understand the significance of this policy, we need to first review the trajectory of Spain's real estate market. After the 2008 global financial crisis, Spain's economy was severely hit, with property prices dropping significantly. However, this crisis paradoxically laid the groundwork for the subsequent foreign investment boom. As the economy gradually recovered, Spain began attracting numerous foreign buyers to its real estate market, thanks to its unique advantages.
 
