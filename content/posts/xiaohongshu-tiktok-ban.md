@@ -1,6 +1,6 @@
 ---
 title: xiaohongshu-tiktok-ban_zh
-slug: xiaohongshu-tiktok-ban
+slug: 小红书：TikTok封禁潮下的机遇与挑战
 language: zh
 date: 2025-01-15T12:25:39.150Z
 description: 本文深入分析美国封禁TikTok引发的美国用户向小红书迁移现象，探讨小红书面临的机遇与挑战，以及中美科技竞争的深层逻辑和未来走向。文章指出，小红书需把握机遇，克服文化差异、内容审核等挑战，制定国际化战略，才能在全球市场立足。同时，中美两国应通过对话与合作，构建良性竞争、合作共赢的科技关系新格局。
