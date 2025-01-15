@@ -1,6 +1,6 @@
 ---
 title: xiaohongshu-tiktok-ban
-slug: xiaohongshu-tiktok-ban
+slug: "Xiaohongshu: US TikTok Users' New Destination Amidst Ban"
 language: en
 date: 2025-01-15T12:25:44.917Z
 thumbnail: ""
