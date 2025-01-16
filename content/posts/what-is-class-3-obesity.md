@@ -20,7 +20,7 @@ In recent years, the global obesity population has risen sharply, with obesity a
 ## Class 3 Obesity: A Concept Urgently Awaiting Redefinition
 
 * For instance, an athlete with high muscle mass might have a high BMI but be extremely healthy. Conversely, some individuals with normal BMI might have excessive visceral fat, increasing their risk of serious diseases like heart disease.
-* These diagnostic limitations mean some patients cannot receive timely and effective treatment. For example, some insurance companies require evidence of obesity-related diseases suchastype2diabetes before covering obesity treatment, overlooking obesity itself as an independent chronic disease.
+* These diagnostic limitations mean some patients cannot receive timely and effective treatment. For example, some insurance companies require evidence of obesity-related diseases such as type 2 diabetes before covering obesity treatment, overlooking obesity itself as an independent chronic disease.
 
 ![healthy-diet-exercise](/content/images/uploads/healthy-diet-exercise.jpg)
 
@@ -48,9 +48,9 @@ The committee established 18 diagnostic criteria for adult clinical obesity and 
 
 **The Lancet committee's report recommends adopting a multi-indicator system for obesity diagnosis, rather than relying solely on BMI.**  They suggest using one of the following methods to confirm excess body fat and its distribution:
 
-* In addition to BMI, measure at least one body dimension waistcircumference,waist−hipratio,orwaist−heightratio
+* In addition to BMI, measure at least one body dimension waist circumference,waist−hipratio,orwaist−heightratio
 * Measure at least two body dimensions, regardless of BMI
-* Directly measure body fat suchasthroughbonedensityscanningorDEXA
+* Directly measure body fat such as through bonedensity scanning or DEXA
 * For individuals with very high BMI e.g.,>40kg/m2, assume excess body fat
 
 This multi-indicator diagnostic approach can more comprehensively assess patient health, avoiding potential misdiagnosis and missed diagnosis that might occur when relying solely on BMI. 
@@ -65,7 +65,7 @@ Although pre-clinical obesity patients do not currently present with active dise
 
 **The new diagnostic standards proposed by the Lancet committee will have profound implications not only for clinical obesity diagnosis and treatment but also for drug development and medical insurance.** 
 
-For example, new weight loss medications like Novo Nordisk's Wegovy and Eli Lilly's Mounjaro are approved in the United States for individuals with a BMI ≥30 or BMI ≥27 with weight-related conditions suchashypertensionorsleepapnea.
+For example, new weight loss medications like Novo Nordisk's Wegovy and Eli Lilly's Mounjaro are approved in the United States for individuals with a BMI ≥30 or BMI ≥27 with weight-related conditions such as hypertension or sleep apnea.
 
 **Under the new diagnostic standards, some patients previously considered obese may no longer qualify for these medications, which will impact the weight loss drug market.** 
 
