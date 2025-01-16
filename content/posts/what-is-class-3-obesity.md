@@ -48,7 +48,7 @@ The committee established 18 diagnostic criteria for adult clinical obesity and 
 
 **The Lancet committee's report recommends adopting a multi-indicator system for obesity diagnosis, rather than relying solely on BMI.**  They suggest using one of the following methods to confirm excess body fat and its distribution:
 
-* In addition to BMI, measure at least one body dimension waistcircumference,waist−hipratio,orwaist−heightratio
+* In addition to BMI, measure at least one body dimension waist circumference,waist−hipratio,orwaist−heightratio
 * Measure at least two body dimensions, regardless of BMI
 * Directly measure body fat such as through bonedensity scanning or DEXA
 * For individuals with very high BMI e.g.,>40kg/m2, assume excess body fat
