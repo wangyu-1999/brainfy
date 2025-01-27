@@ -13,11 +13,15 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const { lang } = await params
     const dict = await getDictionary(lang)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
     
     return {
         title: dict.external.leaving,
         description: dict.external.warning,
-        robots: 'noindex, nofollow'
+        metadataBase: new URL(baseUrl),
+        alternates: {
+          canonical: `/${lang}/news/redirect`,
+        }
     }
 }
 

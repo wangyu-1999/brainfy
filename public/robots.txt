@@ -14,9 +14,6 @@ Disallow: /private/*.xml$
 Disallow: /*?*
 Disallow: /404
 Disallow: /not-found
-Disallow: /*/redirect*
-Disallow: /*/news/redirect*
-Disallow: /*redirect*?url=*
 
 Disallow: /cdn-cgi/
 Disallow: /.well-known/
